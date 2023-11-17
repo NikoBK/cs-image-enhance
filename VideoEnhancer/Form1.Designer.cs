@@ -57,11 +57,11 @@
             inputResLabel = new Label();
             outputResLabel = new Label();
             tabControl1 = new TabControl();
+            tabPage3 = new TabPage();
+            postProcessFeedLabel = new Label();
+            postProcessVideoImageBox = new PictureBox();
             tabPage4 = new TabPage();
             pictureBox3 = new PictureBox();
-            tabPage3 = new TabPage();
-            pictureBox2 = new PictureBox();
-            postProcessFeedLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)videoPlayerImageBox).BeginInit();
             inputVideoTabControl.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -74,10 +74,10 @@
             ((System.ComponentModel.ISupportInitialize)extHWDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)internalHWDataGridView).BeginInit();
             tabControl1.SuspendLayout();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)postProcessVideoImageBox).BeginInit();
             tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // videoPlayerImageBox
@@ -152,7 +152,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(492, 322);
+            tabPage2.Size = new Size(656, 424);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Post-Process Video";
             tabPage2.UseVisualStyleBackColor = true;
@@ -163,7 +163,7 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(3, 3);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(486, 316);
+            pictureBox1.Size = new Size(650, 418);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -276,7 +276,7 @@
             hardwareTabPage.Location = new Point(4, 24);
             hardwareTabPage.Name = "hardwareTabPage";
             hardwareTabPage.Padding = new Padding(3);
-            hardwareTabPage.Size = new Size(1001, 286);
+            hardwareTabPage.Size = new Size(1318, 286);
             hardwareTabPage.TabIndex = 1;
             hardwareTabPage.Text = "Hardware";
             // 
@@ -394,6 +394,42 @@
             tabControl1.Size = new Size(641, 452);
             tabControl1.TabIndex = 5;
             // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(postProcessFeedLabel);
+            tabPage3.Controls.Add(postProcessVideoImageBox);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(633, 424);
+            tabPage3.TabIndex = 0;
+            tabPage3.Text = "Post-Process Video";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // postProcessFeedLabel
+            // 
+            postProcessFeedLabel.AutoSize = true;
+            postProcessFeedLabel.BackColor = Color.Black;
+            postProcessFeedLabel.FlatStyle = FlatStyle.Flat;
+            postProcessFeedLabel.Font = new Font("Segoe UI Semibold", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            postProcessFeedLabel.ForeColor = SystemColors.ButtonHighlight;
+            postProcessFeedLabel.Location = new Point(226, 175);
+            postProcessFeedLabel.Name = "postProcessFeedLabel";
+            postProcessFeedLabel.Size = new Size(241, 65);
+            postProcessFeedLabel.TabIndex = 2;
+            postProcessFeedLabel.Text = "No feed...";
+            // 
+            // postProcessVideoImageBox
+            // 
+            postProcessVideoImageBox.BackColor = Color.Black;
+            postProcessVideoImageBox.Dock = DockStyle.Fill;
+            postProcessVideoImageBox.Location = new Point(3, 3);
+            postProcessVideoImageBox.Name = "postProcessVideoImageBox";
+            postProcessVideoImageBox.Size = new Size(627, 418);
+            postProcessVideoImageBox.SizeMode = PictureBoxSizeMode.Zoom;
+            postProcessVideoImageBox.TabIndex = 0;
+            postProcessVideoImageBox.TabStop = false;
+            // 
             // tabPage4
             // 
             tabPage4.Controls.Add(pictureBox3);
@@ -414,41 +450,6 @@
             pictureBox3.Size = new Size(627, 418);
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
-            // 
-            // tabPage3
-            // 
-            tabPage3.Controls.Add(postProcessFeedLabel);
-            tabPage3.Controls.Add(pictureBox2);
-            tabPage3.Location = new Point(4, 24);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(633, 424);
-            tabPage3.TabIndex = 0;
-            tabPage3.Text = "Post-Process Video";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Black;
-            pictureBox2.Dock = DockStyle.Fill;
-            pictureBox2.Location = new Point(3, 3);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(627, 418);
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
-            // 
-            // postProcessFeedLabel
-            // 
-            postProcessFeedLabel.AutoSize = true;
-            postProcessFeedLabel.BackColor = Color.Black;
-            postProcessFeedLabel.FlatStyle = FlatStyle.Flat;
-            postProcessFeedLabel.Font = new Font("Segoe UI Semibold", 36F, FontStyle.Bold, GraphicsUnit.Point);
-            postProcessFeedLabel.ForeColor = SystemColors.ButtonHighlight;
-            postProcessFeedLabel.Location = new Point(226, 175);
-            postProcessFeedLabel.Name = "postProcessFeedLabel";
-            postProcessFeedLabel.Size = new Size(241, 65);
-            postProcessFeedLabel.TabIndex = 2;
-            postProcessFeedLabel.Text = "No feed...";
             // 
             // Form1
             // 
@@ -480,11 +481,11 @@
             ((System.ComponentModel.ISupportInitialize)extHWDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)internalHWDataGridView).EndInit();
             tabControl1.ResumeLayout(false);
-            tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)postProcessVideoImageBox).EndInit();
+            tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -523,7 +524,7 @@
         private TabControl tabControl1;
         private TabPage tabPage3;
         private Label postProcessFeedLabel;
-        private PictureBox pictureBox2;
+        private PictureBox postProcessVideoImageBox;
         private TabPage tabPage4;
         private PictureBox pictureBox3;
     }

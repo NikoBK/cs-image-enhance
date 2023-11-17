@@ -60,8 +60,8 @@ namespace VideoEnhancer
             if (_videoLoaded)
             {
                 _streamVideo = true;
+                // TODO: Start the input stream on one thread and the post-process on another.
                 StreamVideo();
-                ProcessVideo();
             }
             else
             {
@@ -122,7 +122,23 @@ namespace VideoEnhancer
 
         private async void ProcessVideo()
         {
-            // TODO: Implement something.
+            while (_streamVideo)
+            {
+                var frameSize = new Size(1920, 1080);
+                Mat frame = new Mat();
+                _videoCapture.Read(frame);
+                int frameFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
+                CvInvoke.Resize(frame, frame, frameSize);
+                var img = frame.ToBitmap();
+                postProcessVideoImageBox.Image = img;
+
+                // Always update labels at last in the while loop
+                postProcessFPSLabel.Text = $"FPS: {frameFPS}";
+                outputResLabel.Text = $"{frame.Width}x{frame.Height}";
+
+                // Assuming it runs at 60fps
+                await Task.Delay(16);
+            }
         }
     }
 }
