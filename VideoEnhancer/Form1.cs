@@ -1,5 +1,6 @@
 using Emgu.CV;
 using Emgu.CV.CvEnum;
+using System.Drawing;
 
 namespace VideoEnhancer
 {
@@ -8,6 +9,8 @@ namespace VideoEnhancer
         public static bool EMULATE { get; private set; } = true;
 
         private VideoCapture _videoCapture;
+        private bool _streamVideo = false;
+        private bool _videoLoaded = false;
 
         public Form1()
         {
@@ -42,18 +45,29 @@ namespace VideoEnhancer
                 bool readSuccess = _videoCapture.Read(frame);
                 if (readSuccess)
                 {
-                    videoPlayerImageBox.Image = frame.ToBitmap();
-                    int inputFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
-                    inputFPSLabel.Text = $"FPS: {inputFPS}";
-                    inputResLabel.Text = $"{frame.Width}x{frame.Height}";
-                    frame.Dispose();
+                    //videoPlayerImageBox.Image = frame.ToBitmap();
+                    //int inputFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
+                    //inputFPSLabel.Text = $"FPS: {inputFPS}";
+                    //inputResLabel.Text = $"{frame.Width}x{frame.Height}";
+                    //frame.Dispose();
+                    _videoLoaded = true;
                 }
             }
         }
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            // TODO: Implement something here..
+            if (_videoLoaded)
+            {
+                _streamVideo = true;
+                StreamVideo();
+                ProcessVideo();
+            }
+            else
+            {
+                MessageBox.Show("No video is loaded!", "Error: Invalid Video", MessageBoxButtons.OK);
+                return;
+            }
         }
 
         /// <summary>
@@ -72,6 +86,43 @@ namespace VideoEnhancer
                 }
             }
             // TODO: Check to possibly append a final "\r\n" str.
+        }
+
+        /// <summary>
+        /// Keep video stream async from UI operations to reduce lag.
+        /// </summary>
+        public async void StreamVideo()
+        {
+            while (_streamVideo)
+            {
+                var frameSize = new Size(1920, 1080);
+
+                // Capture a new Mat array from the default camera
+                // Mat frame = new Mat(frameSize, DepthType.Default, 1);
+                Mat frame = new Mat();
+                _videoCapture.Read(frame);
+                int inputFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
+
+                // Define a new System.Drawing "Size" object to resize the
+                // captured Mat, then resize the Mat
+                CvInvoke.Resize(frame, frame, frameSize);
+
+                // Convert the Mat to a bitmap to display in the pictureBox
+                var img = frame.ToBitmap();
+                videoPlayerImageBox.Image = img;
+
+                // Always update labels at last in the while loop
+                inputFPSLabel.Text = $"FPS: {inputFPS}";
+                inputResLabel.Text = $"{frame.Width}x{frame.Height}";
+
+                // Assuming it runs at 60fps
+                await Task.Delay(16);
+            }
+        }
+
+        private async void ProcessVideo()
+        {
+            // TODO: Implement something.
         }
     }
 }

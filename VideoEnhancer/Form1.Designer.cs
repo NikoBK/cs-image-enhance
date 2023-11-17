@@ -36,13 +36,6 @@
             inputFeedLabel = new Label();
             tabPage2 = new TabPage();
             pictureBox1 = new PictureBox();
-            panel1 = new Panel();
-            tabControl1 = new TabControl();
-            tabPage3 = new TabPage();
-            postProcessFeedLabel = new Label();
-            pictureBox2 = new PictureBox();
-            tabPage4 = new TabPage();
-            pictureBox3 = new PictureBox();
             stopButton = new Button();
             controlsTabControl = new TabControl();
             operationsTabPage = new TabPage();
@@ -63,23 +56,28 @@
             postProcessFPSLabel = new Label();
             inputResLabel = new Label();
             outputResLabel = new Label();
+            tabControl1 = new TabControl();
+            tabPage4 = new TabPage();
+            pictureBox3 = new PictureBox();
+            tabPage3 = new TabPage();
+            pictureBox2 = new PictureBox();
+            postProcessFeedLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)videoPlayerImageBox).BeginInit();
             inputVideoTabControl.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel1.SuspendLayout();
-            tabControl1.SuspendLayout();
-            tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             controlsTabControl.SuspendLayout();
             operationsTabPage.SuspendLayout();
             hardwareTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)miscHWDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)extHWDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)internalHWDataGridView).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // videoPlayerImageBox
@@ -88,7 +86,7 @@
             videoPlayerImageBox.Dock = DockStyle.Fill;
             videoPlayerImageBox.Location = new Point(3, 3);
             videoPlayerImageBox.Name = "videoPlayerImageBox";
-            videoPlayerImageBox.Size = new Size(486, 316);
+            videoPlayerImageBox.Size = new Size(650, 418);
             videoPlayerImageBox.SizeMode = PictureBoxSizeMode.Zoom;
             videoPlayerImageBox.TabIndex = 0;
             videoPlayerImageBox.TabStop = false;
@@ -117,10 +115,10 @@
             // 
             inputVideoTabControl.Controls.Add(tabPage1);
             inputVideoTabControl.Controls.Add(tabPage2);
-            inputVideoTabControl.Location = new Point(3, 3);
+            inputVideoTabControl.Location = new Point(3, 5);
             inputVideoTabControl.Name = "inputVideoTabControl";
             inputVideoTabControl.SelectedIndex = 0;
-            inputVideoTabControl.Size = new Size(500, 350);
+            inputVideoTabControl.Size = new Size(664, 452);
             inputVideoTabControl.TabIndex = 4;
             // 
             // tabPage1
@@ -130,7 +128,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(492, 322);
+            tabPage1.Size = new Size(656, 424);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Input Video";
             tabPage1.UseVisualStyleBackColor = true;
@@ -142,7 +140,7 @@
             inputFeedLabel.FlatStyle = FlatStyle.Flat;
             inputFeedLabel.Font = new Font("Segoe UI Semibold", 36F, FontStyle.Bold, GraphicsUnit.Point);
             inputFeedLabel.ForeColor = SystemColors.ButtonHighlight;
-            inputFeedLabel.Location = new Point(121, 122);
+            inputFeedLabel.Location = new Point(201, 175);
             inputFeedLabel.Name = "inputFeedLabel";
             inputFeedLabel.Size = new Size(241, 65);
             inputFeedLabel.TabIndex = 1;
@@ -169,82 +167,6 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // panel1
-            // 
-            panel1.Controls.Add(tabControl1);
-            panel1.Controls.Add(inputVideoTabControl);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1009, 353);
-            panel1.TabIndex = 5;
-            // 
-            // tabControl1
-            // 
-            tabControl1.Controls.Add(tabPage3);
-            tabControl1.Controls.Add(tabPage4);
-            tabControl1.Location = new Point(509, 3);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(500, 350);
-            tabControl1.TabIndex = 5;
-            // 
-            // tabPage3
-            // 
-            tabPage3.Controls.Add(postProcessFeedLabel);
-            tabPage3.Controls.Add(pictureBox2);
-            tabPage3.Location = new Point(4, 24);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(492, 322);
-            tabPage3.TabIndex = 0;
-            tabPage3.Text = "Post-Process Video";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // postProcessFeedLabel
-            // 
-            postProcessFeedLabel.AutoSize = true;
-            postProcessFeedLabel.BackColor = Color.Black;
-            postProcessFeedLabel.FlatStyle = FlatStyle.Flat;
-            postProcessFeedLabel.Font = new Font("Segoe UI Semibold", 36F, FontStyle.Bold, GraphicsUnit.Point);
-            postProcessFeedLabel.ForeColor = SystemColors.ButtonHighlight;
-            postProcessFeedLabel.Location = new Point(126, 129);
-            postProcessFeedLabel.Name = "postProcessFeedLabel";
-            postProcessFeedLabel.Size = new Size(241, 65);
-            postProcessFeedLabel.TabIndex = 2;
-            postProcessFeedLabel.Text = "No feed...";
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Black;
-            pictureBox2.Dock = DockStyle.Fill;
-            pictureBox2.Location = new Point(3, 3);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(486, 316);
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
-            // 
-            // tabPage4
-            // 
-            tabPage4.Controls.Add(pictureBox3);
-            tabPage4.Location = new Point(4, 24);
-            tabPage4.Name = "tabPage4";
-            tabPage4.Padding = new Padding(3);
-            tabPage4.Size = new Size(492, 322);
-            tabPage4.TabIndex = 1;
-            tabPage4.Text = "Input Video";
-            tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.Black;
-            pictureBox3.Dock = DockStyle.Fill;
-            pictureBox3.Location = new Point(3, 3);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(486, 316);
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
-            // 
             // stopButton
             // 
             stopButton.Location = new Point(192, 55);
@@ -258,10 +180,10 @@
             // 
             controlsTabControl.Controls.Add(operationsTabPage);
             controlsTabControl.Controls.Add(hardwareTabPage);
-            controlsTabControl.Location = new Point(0, 376);
+            controlsTabControl.Location = new Point(3, 475);
             controlsTabControl.Name = "controlsTabControl";
             controlsTabControl.SelectedIndex = 0;
-            controlsTabControl.Size = new Size(1009, 314);
+            controlsTabControl.Size = new Size(1326, 314);
             controlsTabControl.TabIndex = 9;
             // 
             // operationsTabPage
@@ -279,7 +201,7 @@
             operationsTabPage.Location = new Point(4, 24);
             operationsTabPage.Name = "operationsTabPage";
             operationsTabPage.Padding = new Padding(3);
-            operationsTabPage.Size = new Size(1001, 286);
+            operationsTabPage.Size = new Size(1318, 286);
             operationsTabPage.TabIndex = 0;
             operationsTabPage.Text = "Operations";
             // 
@@ -423,7 +345,7 @@
             inputFPSLabel.AutoSize = true;
             inputFPSLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             inputFPSLabel.ForeColor = SystemColors.ButtonHighlight;
-            inputFPSLabel.Location = new Point(426, 356);
+            inputFPSLabel.Location = new Point(468, 460);
             inputFPSLabel.Name = "inputFPSLabel";
             inputFPSLabel.Size = new Size(62, 21);
             inputFPSLabel.TabIndex = 10;
@@ -434,7 +356,7 @@
             postProcessFPSLabel.AutoSize = true;
             postProcessFPSLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             postProcessFPSLabel.ForeColor = SystemColors.ButtonHighlight;
-            postProcessFPSLabel.Location = new Point(932, 356);
+            postProcessFPSLabel.Location = new Point(974, 460);
             postProcessFPSLabel.Name = "postProcessFPSLabel";
             postProcessFPSLabel.Size = new Size(59, 21);
             postProcessFPSLabel.TabIndex = 11;
@@ -445,7 +367,7 @@
             inputResLabel.AutoSize = true;
             inputResLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             inputResLabel.ForeColor = SystemColors.ButtonHighlight;
-            inputResLabel.Location = new Point(200, 356);
+            inputResLabel.Location = new Point(242, 460);
             inputResLabel.Name = "inputResLabel";
             inputResLabel.Size = new Size(84, 21);
             inputResLabel.TabIndex = 12;
@@ -456,24 +378,91 @@
             outputResLabel.AutoSize = true;
             outputResLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point);
             outputResLabel.ForeColor = SystemColors.ButtonHighlight;
-            outputResLabel.Location = new Point(737, 356);
+            outputResLabel.Location = new Point(779, 460);
             outputResLabel.Name = "outputResLabel";
             outputResLabel.Size = new Size(84, 21);
             outputResLabel.TabIndex = 13;
             outputResLabel.Text = "1920x1080";
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
+            tabControl1.Location = new Point(684, 5);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(641, 452);
+            tabControl1.TabIndex = 5;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(pictureBox3);
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(633, 424);
+            tabPage4.TabIndex = 1;
+            tabPage4.Text = "Input Video";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor = Color.Black;
+            pictureBox3.Dock = DockStyle.Fill;
+            pictureBox3.Location = new Point(3, 3);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(627, 418);
+            pictureBox3.TabIndex = 0;
+            pictureBox3.TabStop = false;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(postProcessFeedLabel);
+            tabPage3.Controls.Add(pictureBox2);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(633, 424);
+            tabPage3.TabIndex = 0;
+            tabPage3.Text = "Post-Process Video";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.Black;
+            pictureBox2.Dock = DockStyle.Fill;
+            pictureBox2.Location = new Point(3, 3);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(627, 418);
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
+            // postProcessFeedLabel
+            // 
+            postProcessFeedLabel.AutoSize = true;
+            postProcessFeedLabel.BackColor = Color.Black;
+            postProcessFeedLabel.FlatStyle = FlatStyle.Flat;
+            postProcessFeedLabel.Font = new Font("Segoe UI Semibold", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            postProcessFeedLabel.ForeColor = SystemColors.ButtonHighlight;
+            postProcessFeedLabel.Location = new Point(226, 175);
+            postProcessFeedLabel.Name = "postProcessFeedLabel";
+            postProcessFeedLabel.Size = new Size(241, 65);
+            postProcessFeedLabel.TabIndex = 2;
+            postProcessFeedLabel.Text = "No feed...";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            ClientSize = new Size(1009, 689);
+            ClientSize = new Size(1326, 787);
+            Controls.Add(tabControl1);
             Controls.Add(outputResLabel);
+            Controls.Add(inputVideoTabControl);
             Controls.Add(inputResLabel);
             Controls.Add(postProcessFPSLabel);
             Controls.Add(inputFPSLabel);
             Controls.Add(controlsTabControl);
-            Controls.Add(panel1);
             Name = "Form1";
             Text = "underwater-drone";
             ((System.ComponentModel.ISupportInitialize)videoPlayerImageBox).EndInit();
@@ -482,13 +471,6 @@
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel1.ResumeLayout(false);
-            tabControl1.ResumeLayout(false);
-            tabPage3.ResumeLayout(false);
-            tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            tabPage4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             controlsTabControl.ResumeLayout(false);
             operationsTabPage.ResumeLayout(false);
             operationsTabPage.PerformLayout();
@@ -497,6 +479,12 @@
             ((System.ComponentModel.ISupportInitialize)miscHWDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)extHWDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)internalHWDataGridView).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -510,19 +498,12 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private PictureBox pictureBox1;
-        private Panel panel1;
-        private TabControl tabControl1;
-        private TabPage tabPage3;
-        private PictureBox pictureBox2;
-        private TabPage tabPage4;
-        private PictureBox pictureBox3;
         private Button stopButton;
         private TrackBar videoTrackBar;
         private TabControl controlsTabControl;
         private TabPage operationsTabPage;
         private TabPage hardwareTabPage;
         private Label inputFeedLabel;
-        private Label postProcessFeedLabel;
         private Label currentRenderMethodLabel;
         private Label intHardwareLabel;
         private Label extHardwareLabel;
@@ -539,5 +520,11 @@
         private ComboBox renderMethodComboBox;
         private Label inputResLabel;
         private Label outputResLabel;
+        private TabControl tabControl1;
+        private TabPage tabPage3;
+        private Label postProcessFeedLabel;
+        private PictureBox pictureBox2;
+        private TabPage tabPage4;
+        private PictureBox pictureBox3;
     }
 }
