@@ -1,6 +1,8 @@
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using System.Drawing;
+using System.Globalization;
+using System.Threading;
 
 namespace VideoEnhancer
 {
@@ -9,8 +11,10 @@ namespace VideoEnhancer
         public static bool EMULATE { get; private set; } = true;
 
         private VideoCapture _videoCapture;
-        private bool _streamVideo = false;
         private bool _videoLoaded = false;
+
+        private Thread _inputStreamThread;
+        private Thread _postProcessThread;
 
         public Form1()
         {
@@ -45,11 +49,14 @@ namespace VideoEnhancer
                 bool readSuccess = _videoCapture.Read(frame);
                 if (readSuccess)
                 {
-                    //videoPlayerImageBox.Image = frame.ToBitmap();
-                    //int inputFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
-                    //inputFPSLabel.Text = $"FPS: {inputFPS}";
-                    //inputResLabel.Text = $"{frame.Width}x{frame.Height}";
-                    //frame.Dispose();
+                    //_inputStreamThread = new Thread(StreamVideo) { 
+                    //    Name = "DroneInput",
+                    //    CurrentCulture = CultureInfo.InvariantCulture
+                    //};
+                    //_postProcessThread = new Thread(ProcessVideo) { 
+                    //    Name = "DroneProc",
+                    //    CurrentCulture = CultureInfo.InvariantCulture
+                    //};
                     _videoLoaded = true;
                 }
             }
@@ -59,8 +66,8 @@ namespace VideoEnhancer
         {
             if (_videoLoaded)
             {
-                _streamVideo = true;
-                // TODO: Start the input stream on one thread and the post-process on another.
+                // _inputStreamThread.Start();
+                // _postProcessThread.Start();
                 StreamVideo();
             }
             else
@@ -93,15 +100,24 @@ namespace VideoEnhancer
         /// </summary>
         public async void StreamVideo()
         {
-            while (_streamVideo)
+            bool streamVideo;
+            var fileName = "jammerbugt.mp4";
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + $"/udnerwater-drone-backup/res/vid/{fileName}";
+            if (!File.Exists(path)) {
+                MessageBox.Show($"Video file '{fileName}' could not be found in path:\n{path}", "Error: Invalid File", MessageBoxButtons.OK);
+                return;
+            }
+            streamVideo = true;
+            var videoCapture = new VideoCapture(path);
+            while (streamVideo)
             {
                 var frameSize = new Size(1920, 1080);
 
                 // Capture a new Mat array from the default camera
                 // Mat frame = new Mat(frameSize, DepthType.Default, 1);
                 Mat frame = new Mat();
-                _videoCapture.Read(frame);
-                int inputFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
+                videoCapture.Read(frame);
+                int inputFPS = Convert.ToInt32(videoCapture.Get(CapProp.Fps));
 
                 // Define a new System.Drawing "Size" object to resize the
                 // captured Mat, then resize the Mat
@@ -122,23 +138,23 @@ namespace VideoEnhancer
 
         private async void ProcessVideo()
         {
-            while (_streamVideo)
-            {
-                var frameSize = new Size(1920, 1080);
-                Mat frame = new Mat();
-                _videoCapture.Read(frame);
-                int frameFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
-                CvInvoke.Resize(frame, frame, frameSize);
-                var img = frame.ToBitmap();
-                postProcessVideoImageBox.Image = img;
+            //while (_streamVideo)
+            //{
+            //    var frameSize = new Size(1920, 1080);
+            //    Mat frame = new Mat();
+            //    _videoCapture.Read(frame);
+            //    int frameFPS = Convert.ToInt32(_videoCapture.Get(CapProp.Fps));
+            //    CvInvoke.Resize(frame, frame, frameSize);
+            //    var img = frame.ToBitmap();
+            //    postProcessVideoImageBox.Image = img;
 
-                // Always update labels at last in the while loop
-                postProcessFPSLabel.Text = $"FPS: {frameFPS}";
-                outputResLabel.Text = $"{frame.Width}x{frame.Height}";
+            //    // Always update labels at last in the while loop
+            //    postProcessFPSLabel.Text = $"FPS: {frameFPS}";
+            //    outputResLabel.Text = $"{frame.Width}x{frame.Height}";
 
-                // Assuming it runs at 60fps
-                await Task.Delay(16);
-            }
+            //    // Assuming it runs at 60fps
+            //    await Task.Delay(16);
+            //}
         }
     }
 }
