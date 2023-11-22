@@ -23,7 +23,7 @@ namespace VideoEnhancer
             InitializeComponent();
 
             // Try to match the tick speed of the processing thread
-            timer1.Interval = 75;
+            timer1.Interval = 25;
 
             // Setup queues
             InputQueue = new ConcurrentQueue<Bitmap>();
