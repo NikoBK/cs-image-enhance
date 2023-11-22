@@ -42,7 +42,7 @@
             pictureBox1.BackColor = Color.Black;
             pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(468, 305);
+            pictureBox1.Size = new Size(745, 475);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -50,16 +50,16 @@
             // pictureBox2
             // 
             pictureBox2.BackColor = Color.Black;
-            pictureBox2.Location = new Point(486, 12);
+            pictureBox2.Location = new Point(770, 12);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(468, 305);
+            pictureBox2.Size = new Size(745, 475);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             // 
             // startButton
             // 
-            startButton.Location = new Point(443, 323);
+            startButton.Location = new Point(726, 493);
             startButton.Name = "startButton";
             startButton.Size = new Size(75, 51);
             startButton.TabIndex = 2;
@@ -69,13 +69,14 @@
             // 
             // timer1
             // 
+            timer1.Interval = 30;
             timer1.Tick += timer1_Tick;
             // 
             // Test
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(966, 381);
+            ClientSize = new Size(1526, 554);
             Controls.Add(startButton);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
