@@ -63,7 +63,9 @@ namespace VideoEnhancer
                     // Debug.WriteLine("VideoCapture thread tick");
                     Mat frame = new Mat();
                     _capture.Retrieve(frame);
-                    CvInvoke.Resize(frame, frame, new Size(1920, 1080));
+                    CvInvoke.Resize(frame, frame, new Size(1280, 720));
+
+                    // Debug.WriteLine($"width: {frame.Width}, height: {frame.Height}");
 
                     // The processing thread needs this.
                     InputQueue.Enqueue(frame.ToBitmap());
