@@ -1,6 +1,8 @@
-﻿
-
-
+﻿/*
+    file: Constants.cs
+    author: nikobk
+    created on: nov 22 2023
+*/
 namespace VideoEnhancer
 {
     public static class Constants
