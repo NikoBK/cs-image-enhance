@@ -15,11 +15,6 @@ namespace VideoEnhancer
         public ConcurrentQueue<Bitmap> OutputQueue { get; private set; }
         public ConcurrentQueue<(Bitmap input, Bitmap output)> ProcessQueue { get; private set; }
         private VideoCapture _capture;
-        private bool _streamVideo = false;
-        private Thread _procThread;
-        private bool _isRunning = false;
-        public string _videoFileName { get; private set; }
-        private bool _tickReady = false;
 
         public int TrackBarValue;
 
@@ -52,33 +47,6 @@ namespace VideoEnhancer
                 pictureBox1.Image = input;
                 pictureBox2.Image = output;
             }
-
-            // Debug.WriteLine($"{dt_prefix}timer1 tick!");
-            // Dequeue the input video frames and display them.
-            //Bitmap inputBmap;
-            //if (InputQueue.TryDequeue(out inputBmap))
-            //{
-            //    var oldImgInput = pictureBox1.Image;
-            //    pictureBox1.Image = inputBmap;
-            //    if (oldImgInput != null)
-            //    {
-            //        // Force the cs garbage collector to do his job.
-            //        using (oldImgInput) { }
-            //    }
-            //}
-
-            //// Dequeue the processed video frames and display them.
-            //Bitmap outputBmap;
-            //if (OutputQueue.TryDequeue(out outputBmap))
-            //{
-            //    var oldImgOutput = pictureBox2.Image;
-            //    pictureBox2.Image = outputBmap;
-            //    if (oldImgOutput != null)
-            //    {
-            //        // Force the cs garbage collector to do his job.
-            //        using (oldImgOutput) { }
-            //    }
-            //}
         }
 
         private void Capture_ImageGrabbed(object sender, EventArgs e)
@@ -131,74 +99,12 @@ namespace VideoEnhancer
             ofd.Filter = "Video Files (*.mp4, *.avi,  *.flv)| *.mp4;*.avi*.flv";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                _isRunning = true;
-                _streamVideo = true;
-                // _videoFileName = ofd.FileName;
                 _lastOutput = DateTime.Now;
                 _capture = new VideoCapture(ofd.FileName);
-                var fps = _capture.Get(CapProp.Fps);
-                Debug.WriteLine($"Videp capture FPS is: {fps}");
+
                 _capture.ImageGrabbed += Capture_ImageGrabbed;
                 _capture.Start();
-                //_procThread = new Thread(ProcessVideo)
-                //{
-                //    Name = "vidproccv",
-                //    CurrentCulture = CultureInfo.InvariantCulture
-                //};
-                //_procThread.Start();
                 timer1.Start();
-            }
-        }
-
-        private void ProcessVideo()
-        {
-            _lastOutput = DateTime.Now;
-
-
-            Stopwatch sw = new Stopwatch();
-            long dt = 0;
-            long tickCount = 0;
-            sw.Start();
-
-            do
-            {
-                if (!_isRunning)
-                {
-                    break;
-                }
-
-                long times = dt / Constants.MSPT;
-                dt -= times * Constants.MSPT;
-                times++;
-                long tickTimes = sw.ElapsedMilliseconds;
-                tickCount += times;
-
-                if (!TickReady)
-                {
-                    TickReady = true;
-                }
-
-                Thread.Sleep(Constants.MSPT);
-                dt += Math.Max(0, sw.ElapsedMilliseconds - tickTimes - Constants.MSPT);
-            }
-            while (true);
-            Debug.WriteLine("Logic loop stopped");
-        }
-
-        // This is called atomic 
-        private Int32 _IsRefreshingDNU;
-        /// <summary>
-        /// Gets or sets a thread safe (<see cref="Interlocked"/> controlled) manner of specifying whether pollers should exit their loop when they complete/wake up next.
-        /// </summary>
-        public Boolean TickReady
-        {
-            get { return (Interlocked.CompareExchange(ref _IsRefreshingDNU, 1, 1) == 1); }
-            set
-            {
-                if (value)
-                { Interlocked.CompareExchange(ref _IsRefreshingDNU, 1, 0); }
-                else
-                { Interlocked.CompareExchange(ref _IsRefreshingDNU, 0, 1); }
             }
         }
     }
