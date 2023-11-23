@@ -44,7 +44,7 @@
             pictureBox1.BackColor = Color.Black;
             pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(745, 475);
+            pictureBox1.Size = new Size(745, 426);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -54,7 +54,7 @@
             pictureBox2.BackColor = Color.Black;
             pictureBox2.Location = new Point(770, 12);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(745, 475);
+            pictureBox2.Size = new Size(745, 426);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;

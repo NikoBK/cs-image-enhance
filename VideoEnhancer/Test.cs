@@ -1,4 +1,9 @@
-﻿using Emgu.CV;
+﻿/*
+    file: Test.cs
+    author: nikobk
+    created on: nov 22 2023
+*/
+using Emgu.CV;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 
@@ -63,13 +68,15 @@ namespace VideoEnhancer
 
                 // Sleep for the difference in time on a tick basis if the
                 // video processing is ahead of the framecount.
-                if (diff.TotalMilliseconds < Constants.MSPerTick) {
+                if (diff.TotalMilliseconds < Constants.MSPerTick)
+                {
                     Thread.Sleep((int)(Constants.MSPerTick - diff.TotalMilliseconds));
                     dt = DateTime.Now;
                 }
                 // If the processing falls behind skip the frame to ensure
                 // that we keep up with the stream of framedata.
-                else if (diff.TotalMilliseconds > Constants.MSPerTick) {
+                else if (diff.TotalMilliseconds > Constants.MSPerTick)
+                {
                     Debug.WriteLine($"{dt_prefix}Skipped frame");
                     _lastOutput += TimeSpan.FromMilliseconds(Constants.MSPerTick);
                     return;
@@ -89,7 +96,8 @@ namespace VideoEnhancer
                 // Update the time when the frame should have been processed.
                 _lastOutput = dt;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message, "Exception Catch", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
