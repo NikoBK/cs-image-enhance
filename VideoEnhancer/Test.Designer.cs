@@ -33,8 +33,10 @@
             pictureBox2 = new PictureBox();
             startButton = new Button();
             timer1 = new System.Windows.Forms.Timer(components);
+            trackBar1 = new TrackBar();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -72,11 +74,19 @@
             timer1.Interval = 30;
             timer1.Tick += timer1_Tick;
             // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(130, 493);
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(240, 45);
+            trackBar1.TabIndex = 3;
+            // 
             // Test
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1526, 554);
+            Controls.Add(trackBar1);
             Controls.Add(startButton);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
@@ -84,7 +94,9 @@
             Text = "Test";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -93,5 +105,6 @@
         private PictureBox pictureBox2;
         private Button startButton;
         private System.Windows.Forms.Timer timer1;
+        private TrackBar trackBar1;
     }
 }

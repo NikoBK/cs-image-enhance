@@ -4,13 +4,16 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using Emgu.CV.CvEnum;
+using System.Windows.Forms;
 
 namespace VideoEnhancer
 {
     public partial class Test : Form
     {
         public ConcurrentQueue<Bitmap> InputQueue { get; private set; }
-        public ConcurrentQueue<Bitmap> ProcessedQueue { get; private set; }
+        public ConcurrentQueue<Bitmap> OutputQueue { get; private set; }
+        public ConcurrentQueue<(Bitmap input, Bitmap output)> ProcessQueue { get; private set; }
         private VideoCapture _capture;
         private bool _streamVideo = false;
         private Thread _procThread;
@@ -18,79 +21,103 @@ namespace VideoEnhancer
         public string _videoFileName { get; private set; }
         private bool _tickReady = false;
 
+        public int TrackBarValue;
+
+        private DateTime _lastOutput;
+
         public Test()
         {
             InitializeComponent();
 
             // Try to match the tick speed of the processing thread
-            timer1.Interval = 25;
+            timer1.Interval = 30;
 
             // Setup queues
             InputQueue = new ConcurrentQueue<Bitmap>();
-            ProcessedQueue = new ConcurrentQueue<Bitmap>();
+            OutputQueue = new ConcurrentQueue<Bitmap>();
+            ProcessQueue = new ConcurrentQueue<(Bitmap, Bitmap)>();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             string dt_prefix = $"[{DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second}:{DateTime.Now.Millisecond}]";
-            Debug.WriteLine($"{dt_prefix}timer1 tick!");
-            // Dequeue the input video frames and display them.
-            if (InputQueue.Count > 0)
+
+            if (ProcessQueue.TryDequeue(out var pair))
             {
-                Bitmap inputBmap;
-                if (InputQueue.TryDequeue(out inputBmap))
-                {
-                    var oldImgInput = pictureBox1.Image;
-                    pictureBox1.Image = inputBmap;
-                    if (oldImgInput != null)
-                    {
-                        // Force the cs garbage collector to do his job.
-                        using (oldImgInput) { }
-                    }
-                }
+                pictureBox1.Image?.Dispose();
+                pictureBox2.Image?.Dispose();
+
+                var input = pair.input;
+                var output = pair.output;
+                pictureBox1.Image = input;
+                pictureBox2.Image = output;
             }
 
-            // Dequeue the processed video frames and display them.
-            if (ProcessedQueue.Count > 0)
-            {
-                Bitmap outputBmap;
-                if (ProcessedQueue.TryDequeue(out outputBmap))
-                {
-                    var oldImgOutput = pictureBox2.Image;
-                    pictureBox2.Image = outputBmap;
-                    if (oldImgOutput != null)
-                    {
-                        // Force the cs garbage collector to do his job.
-                        using (oldImgOutput) { }
-                    }
-                }
-            }
+            // Debug.WriteLine($"{dt_prefix}timer1 tick!");
+            // Dequeue the input video frames and display them.
+            //Bitmap inputBmap;
+            //if (InputQueue.TryDequeue(out inputBmap))
+            //{
+            //    var oldImgInput = pictureBox1.Image;
+            //    pictureBox1.Image = inputBmap;
+            //    if (oldImgInput != null)
+            //    {
+            //        // Force the cs garbage collector to do his job.
+            //        using (oldImgInput) { }
+            //    }
+            //}
+
+            //// Dequeue the processed video frames and display them.
+            //Bitmap outputBmap;
+            //if (OutputQueue.TryDequeue(out outputBmap))
+            //{
+            //    var oldImgOutput = pictureBox2.Image;
+            //    pictureBox2.Image = outputBmap;
+            //    if (oldImgOutput != null)
+            //    {
+            //        // Force the cs garbage collector to do his job.
+            //        using (oldImgOutput) { }
+            //    }
+            //}
         }
 
         private void Capture_ImageGrabbed(object sender, EventArgs e)
         {
             try
             {
-                if (_streamVideo && TickReady)
+                var dt = DateTime.Now;
+                string dt_prefix = $"[{dt.Hour}:{dt.Minute}:{dt.Second}:{dt.Millisecond}]";
+                var diff = dt - _lastOutput;
+
+                if (diff.TotalMilliseconds < Constants.MSPT)
                 {
-                    string dt_prefix = $"[{DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second}:{DateTime.Now.Millisecond}]";
-                    Debug.WriteLine($"{dt_prefix}video capture tick!");
-                    // Debug.WriteLine("VideoCapture thread tick");
-                    Mat frame = new Mat();
-                    _capture.Retrieve(frame);
-                    CvInvoke.Resize(frame, frame, new Size(1280, 720));
-
-                    // Debug.WriteLine($"width: {frame.Width}, height: {frame.Height}");
-
-                    // The processing thread needs this.
-                    InputQueue.Enqueue(frame.ToBitmap());
-
-                    // Imagine this was actually processed with some filter or something
-                    ProcessedQueue.Enqueue(frame.ToBitmap());
-
-                    frame.Dispose();
-                    TickReady = false;
+                    Thread.Sleep((int)(Constants.MSPT - diff.TotalMilliseconds));
+                    dt = DateTime.Now;
                 }
+                else if (diff.TotalMilliseconds > Constants.MSPT)
+                {
+                    Debug.WriteLine($"Skipped frame at {dt_prefix}");
+                    _lastOutput += TimeSpan.FromMilliseconds(Constants.MSPT);
+                    return;
+                }
+
+                Debug.WriteLine($"{dt_prefix}video capture tick!");
+                // Debug.WriteLine("VideoCapture thread tick");
+                using Mat frame = new Mat();
+                _capture.Retrieve(frame);
+                CvInvoke.Resize(frame, frame, new Size(1920, 1080));
+
+                // Debug.WriteLine($"width: {frame.Width}, height: {frame.Height}");
+                using Mat smoothFrame = new Mat();
+                CvInvoke.GaussianBlur(frame, smoothFrame, new Size(17, 17), 0);
+                ProcessQueue.Enqueue((input: frame.ToBitmap(), output: smoothFrame.ToBitmap()));
+
+                //// The processing thread needs this.
+                //InputQueue.Enqueue(frame.ToBitmap());
+
+                //// Imagine this was actually processed with some filter or something
+                //OutputQueue.Enqueue(frame.ToBitmap());
+                _lastOutput = dt;
             }
             catch (Exception ex)
             {
@@ -106,22 +133,27 @@ namespace VideoEnhancer
             {
                 _isRunning = true;
                 _streamVideo = true;
-                _videoFileName = ofd.FileName;
-                _procThread = new Thread(ProcessVideo)
-                {
-                    Name = "vidproccv",
-                    CurrentCulture = CultureInfo.InvariantCulture
-                };
-                _procThread.Start();
+                // _videoFileName = ofd.FileName;
+                _lastOutput = DateTime.Now;
+                _capture = new VideoCapture(ofd.FileName);
+                var fps = _capture.Get(CapProp.Fps);
+                Debug.WriteLine($"Videp capture FPS is: {fps}");
+                _capture.ImageGrabbed += Capture_ImageGrabbed;
+                _capture.Start();
+                //_procThread = new Thread(ProcessVideo)
+                //{
+                //    Name = "vidproccv",
+                //    CurrentCulture = CultureInfo.InvariantCulture
+                //};
+                //_procThread.Start();
                 timer1.Start();
             }
         }
 
         private void ProcessVideo()
         {
-            _capture = new VideoCapture(_videoFileName);
-            _capture.ImageGrabbed += Capture_ImageGrabbed;
-            _capture.Start();
+            _lastOutput = DateTime.Now;
+
 
             Stopwatch sw = new Stopwatch();
             long dt = 0;
@@ -153,6 +185,7 @@ namespace VideoEnhancer
             Debug.WriteLine("Logic loop stopped");
         }
 
+        // This is called atomic 
         private Int32 _IsRefreshingDNU;
         /// <summary>
         /// Gets or sets a thread safe (<see cref="Interlocked"/> controlled) manner of specifying whether pollers should exit their loop when they complete/wake up next.
