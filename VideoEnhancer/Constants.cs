@@ -5,7 +5,8 @@ namespace VideoEnhancer
 {
     public static class Constants
     {
-        public static int TPS = 25;
-        public static int MSPT = 1000 / TPS;
+        public const int TPS = 25;
+        public const int MSPerTick = 1000 / TPS;
+        public const int TimerInterval = 25; 
     }
 }

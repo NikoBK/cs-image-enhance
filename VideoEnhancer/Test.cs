@@ -1,42 +1,37 @@
 ﻿using Emgu.CV;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using Emgu.CV.CvEnum;
-using System.Windows.Forms;
 
 namespace VideoEnhancer
 {
     public partial class Test : Form
     {
-        public ConcurrentQueue<Bitmap> InputQueue { get; private set; }
-        public ConcurrentQueue<Bitmap> OutputQueue { get; private set; }
+        // Video Processing
         public ConcurrentQueue<(Bitmap input, Bitmap output)> ProcessQueue { get; private set; }
         private VideoCapture _capture;
-
-        public int TrackBarValue;
-
         private DateTime _lastOutput;
+
+        // Controls
+        public int TrackBarValue;
 
         public Test()
         {
             InitializeComponent();
 
-            // Try to match the tick speed of the processing thread
-            timer1.Interval = 30;
-
-            // Setup queues
-            InputQueue = new ConcurrentQueue<Bitmap>();
-            OutputQueue = new ConcurrentQueue<Bitmap>();
+            // Setup form controls
+            timer1.Interval = Constants.TimerInterval;
             ProcessQueue = new ConcurrentQueue<(Bitmap, Bitmap)>();
         }
 
+        /// <summary>
+        /// <see cref="timer1"/> acts as a tick loop for the
+        /// application's UI/Main -Thread and is responseable for
+        /// updating all UI to ensure thread safety.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
-            string dt_prefix = $"[{DateTime.Now.Hour}:{DateTime.Now.Minute}:{DateTime.Now.Second}:{DateTime.Now.Millisecond}]";
-
             if (ProcessQueue.TryDequeue(out var pair))
             {
                 pictureBox1.Image?.Dispose();
@@ -49,6 +44,15 @@ namespace VideoEnhancer
             }
         }
 
+        /// <summary>
+        /// The video capture event for OpenCV's <see cref="VideoCapture"/> object.
+        /// This is called everytime a frame is read from the file/stream.
+        /// Note that if a file is being read then the <see cref="VideoCapture"/> object
+        /// will read it as fast as possible making it neccessary to ensure the
+        /// capture speed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Capture_ImageGrabbed(object sender, EventArgs e)
         {
             try
@@ -57,42 +61,46 @@ namespace VideoEnhancer
                 string dt_prefix = $"[{dt.Hour}:{dt.Minute}:{dt.Second}:{dt.Millisecond}]";
                 var diff = dt - _lastOutput;
 
-                if (diff.TotalMilliseconds < Constants.MSPT)
-                {
-                    Thread.Sleep((int)(Constants.MSPT - diff.TotalMilliseconds));
+                // Sleep for the difference in time on a tick basis if the
+                // video processing is ahead of the framecount.
+                if (diff.TotalMilliseconds < Constants.MSPerTick) {
+                    Thread.Sleep((int)(Constants.MSPerTick - diff.TotalMilliseconds));
                     dt = DateTime.Now;
                 }
-                else if (diff.TotalMilliseconds > Constants.MSPT)
-                {
-                    Debug.WriteLine($"Skipped frame at {dt_prefix}");
-                    _lastOutput += TimeSpan.FromMilliseconds(Constants.MSPT);
+                // If the processing falls behind skip the frame to ensure
+                // that we keep up with the stream of framedata.
+                else if (diff.TotalMilliseconds > Constants.MSPerTick) {
+                    Debug.WriteLine($"{dt_prefix}Skipped frame");
+                    _lastOutput += TimeSpan.FromMilliseconds(Constants.MSPerTick);
                     return;
                 }
-
                 Debug.WriteLine($"{dt_prefix}video capture tick!");
-                // Debug.WriteLine("VideoCapture thread tick");
+
+                // Auto-dispose objects with .NET Core's using object.
                 using Mat frame = new Mat();
                 _capture.Retrieve(frame);
                 CvInvoke.Resize(frame, frame, new Size(1920, 1080));
 
-                // Debug.WriteLine($"width: {frame.Width}, height: {frame.Height}");
+                // Auto-dispose objects with .NET Core's using object.
                 using Mat smoothFrame = new Mat();
                 CvInvoke.GaussianBlur(frame, smoothFrame, new Size(17, 17), 0);
                 ProcessQueue.Enqueue((input: frame.ToBitmap(), output: smoothFrame.ToBitmap()));
 
-                //// The processing thread needs this.
-                //InputQueue.Enqueue(frame.ToBitmap());
-
-                //// Imagine this was actually processed with some filter or something
-                //OutputQueue.Enqueue(frame.ToBitmap());
+                // Update the time when the frame should have been processed.
                 _lastOutput = dt;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Exception Catch", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        /// <summary>
+        /// TODO: Should just start a video stream considering some
+        /// capture device has been connected at the time of pressing
+        /// this button. This code can be ported to the Export button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void startButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
