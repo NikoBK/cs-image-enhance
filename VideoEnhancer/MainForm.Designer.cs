@@ -33,8 +33,8 @@
             pictureBox2 = new PictureBox();
             startButton = new Button();
             uiTimer = new System.Windows.Forms.Timer(components);
-            splitButton = new Button();
             groupBox1 = new GroupBox();
+            splitButton = new Button();
             channelOneButton = new Button();
             channelTwoButton = new Button();
             channelThreeButton = new Button();
@@ -50,7 +50,10 @@
             gaussBlurCheckBox = new CheckBox();
             gaussKernelSizeTextBox = new TextBox();
             miscTab = new TabPage();
+            darkModeCheckBox = new CheckBox();
             label4 = new Label();
+            tabPage1 = new TabPage();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -58,6 +61,7 @@
             tabControl1.SuspendLayout();
             gaussBlurTab.SuspendLayout();
             miscTab.SuspendLayout();
+            tabPage1.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -82,6 +86,7 @@
             // 
             // startButton
             // 
+            startButton.ForeColor = SystemColors.ControlText;
             startButton.Location = new Point(6, 22);
             startButton.Name = "startButton";
             startButton.Size = new Size(75, 51);
@@ -95,26 +100,28 @@
             uiTimer.Interval = 25;
             uiTimer.Tick += uiTimer_Tick;
             // 
-            // splitButton
-            // 
-            splitButton.Location = new Point(87, 22);
-            splitButton.Name = "splitButton";
-            splitButton.Size = new Size(75, 51);
-            splitButton.TabIndex = 4;
-            splitButton.Text = "Split Colors";
-            splitButton.UseVisualStyleBackColor = true;
-            splitButton.Click += splitButton_Click;
-            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(splitButton);
             groupBox1.Controls.Add(startButton);
+            groupBox1.ForeColor = SystemColors.ControlText;
             groupBox1.Location = new Point(12, 478);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(268, 166);
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Operations";
+            // 
+            // splitButton
+            // 
+            splitButton.ForeColor = SystemColors.ControlText;
+            splitButton.Location = new Point(87, 22);
+            splitButton.Name = "splitButton";
+            splitButton.Size = new Size(75, 51);
+            splitButton.TabIndex = 5;
+            splitButton.Text = "Split Colors";
+            splitButton.UseVisualStyleBackColor = true;
+            splitButton.Click += splitButton_Click;
             // 
             // channelOneButton
             // 
@@ -183,6 +190,7 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(gaussBlurTab);
+            tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(miscTab);
             tabControl1.Location = new Point(6, 15);
             tabControl1.Name = "tabControl1";
@@ -268,6 +276,7 @@
             // 
             miscTab.BackColor = SystemColors.Control;
             miscTab.Controls.Add(label4);
+            miscTab.Controls.Add(darkModeCheckBox);
             miscTab.Location = new Point(4, 24);
             miscTab.Name = "miscTab";
             miscTab.Padding = new Padding(3);
@@ -275,21 +284,54 @@
             miscTab.TabIndex = 1;
             miscTab.Text = "Misc";
             // 
+            // darkModeCheckBox
+            // 
+            darkModeCheckBox.AutoSize = true;
+            darkModeCheckBox.Location = new Point(6, 6);
+            darkModeCheckBox.Name = "darkModeCheckBox";
+            darkModeCheckBox.Size = new Size(84, 19);
+            darkModeCheckBox.TabIndex = 0;
+            darkModeCheckBox.Text = "Dark Mode";
+            darkModeCheckBox.UseVisualStyleBackColor = true;
+            darkModeCheckBox.CheckedChanged += darkModeCheckBox_CheckedChanged;
+            // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
             label4.ForeColor = Color.FromArgb(192, 0, 0);
-            label4.Location = new Point(112, 49);
+            label4.Location = new Point(6, 28);
             label4.Name = "label4";
-            label4.Size = new Size(222, 15);
+            label4.Size = new Size(153, 30);
             label4.TabIndex = 6;
-            label4.Text = "this page is currently just a placeholder :)\r\n";
+            label4.Text = "All settings on this page are\r\nexperimental!";
+            // 
+            // tabPage1
+            // 
+            tabPage1.BackColor = SystemColors.Control;
+            tabPage1.Controls.Add(label5);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Size = new Size(442, 117);
+            tabPage1.TabIndex = 2;
+            tabPage1.Text = "Resolution";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            label5.ForeColor = Color.FromArgb(192, 0, 0);
+            label5.Location = new Point(174, 51);
+            label5.Name = "label5";
+            label5.Size = new Size(81, 15);
+            label5.TabIndex = 7;
+            label5.Text = "To be added...";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(1526, 656);
             Controls.Add(groupBox2);
             Controls.Add(channelsCancelButton);
@@ -311,6 +353,8 @@
             gaussBlurTab.PerformLayout();
             miscTab.ResumeLayout(false);
             miscTab.PerformLayout();
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -320,7 +364,6 @@
         private PictureBox pictureBox2;
         private Button startButton;
         private System.Windows.Forms.Timer uiTimer;
-        private Button splitButton;
         private GroupBox groupBox1;
         private Button channelOneButton;
         private Button channelTwoButton;
@@ -337,6 +380,10 @@
         private Label label1;
         private CheckBox gaussBlurCheckBox;
         private TextBox gaussKernelSizeTextBox;
+        private CheckBox darkModeCheckBox;
+        private Button splitButton;
+        private TabPage tabPage1;
         private Label label4;
+        private Label label5;
     }
 }

@@ -119,15 +119,18 @@ namespace VideoEnhancer
                 }
                 else
                 {
-                    if (_gaussBlur) {
+                    if (_gaussBlur)
+                    {
                         CvInvoke.GaussianBlur(frame, processedFrame, new Size(_gaussKernelSize, _gaussKernelSize), _gaussSigmaY);
                     }
 
                     // Use the input frame if we're not doing any processing on the frame.
-                    if (processedFrame.IsEmpty) {
+                    if (processedFrame.IsEmpty)
+                    {
                         ProcessQueue.Enqueue((input: frame.ToBitmap(), output: frame.ToBitmap()));
                     }
-                    else {
+                    else
+                    {
                         ProcessQueue.Enqueue((input: frame.ToBitmap(), output: processedFrame.ToBitmap()));
                     }
                 }
@@ -262,6 +265,7 @@ namespace VideoEnhancer
             var domain = channelsComboBox.Text;
             if (domain == "BGR")
             {
+                UpdateChannels("Blue", "Green", "Red");
                 return;
             }
 
@@ -319,8 +323,9 @@ namespace VideoEnhancer
             int kernelSize;
             int sigmaY;
             if (int.TryParse(gaussKernelSizeTextBox.Text, out kernelSize) && int.TryParse(gaussSigmaTextBox.Text, out sigmaY))
-            { 
-                if (!gaussBlurCheckBox.Checked && kernelSize % 2 == 0) {
+            {
+                if (!gaussBlurCheckBox.Checked && kernelSize % 2 == 0)
+                {
                     gaussKernelSizeTextBox.Text = Constants.DefaultGaussKernelSize.ToString();
                     MessageBox.Show("A Gaussian blur filter must have an uneven kernel size.", "Invalid Gaussian Kernel Size Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     return;
@@ -336,6 +341,26 @@ namespace VideoEnhancer
             gaussBlurCheckBox.Enabled = enabled;
             gaussKernelSizeTextBox.Enabled = enabled;
             gaussSigmaTextBox.Enabled = enabled;
+        }
+
+        private void darkModeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            bool darkMode = darkModeCheckBox.Checked;
+            var backColor = darkMode ? Color.FromArgb(60, 60, 60) : SystemColors.Control;
+            var foreColor = darkMode ? SystemColors.ButtonShadow : SystemColors.ControlText;
+
+            var controls = GetAll(this, typeof(Button));
+            foreach (var ctrl in controls)
+            {
+                ctrl.BackColor = backColor;
+                ctrl.ForeColor = foreColor;
+            }
+        }
+
+        public IEnumerable<Control> GetAll(Control control, Type type)
+        {
+            var controls = control.Controls.Cast<Control>();
+            return controls.SelectMany(ctrl => GetAll(ctrl, type)).Concat(controls).Where(c => c.GetType() == type);
         }
     }
 }

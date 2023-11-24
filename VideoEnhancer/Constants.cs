@@ -9,10 +9,12 @@ namespace VideoEnhancer
 {
     public static class Constants
     {
+        // Threading
         public const int TPS = 25;
         public const int MSPerTick = 1000 / TPS;
         public const int UITimerInterval = 25;
 
+        // Color Domains
         public static Dictionary<string, string[]> ColorDomains = new Dictionary<string, string[]>()
         {
             { "BGR", new string[]{ "Blue", "Green", "Red" } },
@@ -22,6 +24,7 @@ namespace VideoEnhancer
             { "GRAY", new string[]{ "Gray", "", "" } }
         };
 
+        // Gaussian Blur
         public const int DefaultGaussKernelSize = 3;
         public const int DefaultGaussSigmaY = 0;
     }
