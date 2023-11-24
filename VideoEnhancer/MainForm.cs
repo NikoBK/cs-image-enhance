@@ -154,6 +154,7 @@ namespace VideoEnhancer
         /// <param name="e"></param>
         private void startButton_Click(object sender, EventArgs e)
         {
+            startButton.Enabled = false;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Video Files (*.mp4, *.avi,  *.flv)| *.mp4;*.avi*.flv";
             if (ofd.ShowDialog() == DialogResult.OK)
