@@ -34,7 +34,7 @@
             startButton = new Button();
             uiTimer = new System.Windows.Forms.Timer(components);
             groupBox1 = new GroupBox();
-            screenshotButton = new Button();
+            screenshotInputButton = new Button();
             splitButton = new Button();
             channelOneButton = new Button();
             channelTwoButton = new Button();
@@ -60,6 +60,7 @@
             darkModeCheckBox = new CheckBox();
             noSignalLeftLabel = new Label();
             noSignalRightLabel = new Label();
+            screenshotOutputButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -108,7 +109,8 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(screenshotButton);
+            groupBox1.Controls.Add(screenshotOutputButton);
+            groupBox1.Controls.Add(screenshotInputButton);
             groupBox1.Controls.Add(splitButton);
             groupBox1.Controls.Add(startButton);
             groupBox1.ForeColor = SystemColors.ControlText;
@@ -119,16 +121,16 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Operations";
             // 
-            // screenshotButton
+            // screenshotInputButton
             // 
-            screenshotButton.ForeColor = SystemColors.ControlText;
-            screenshotButton.Location = new Point(168, 22);
-            screenshotButton.Name = "screenshotButton";
-            screenshotButton.Size = new Size(75, 51);
-            screenshotButton.TabIndex = 6;
-            screenshotButton.Text = "Screenshot";
-            screenshotButton.UseVisualStyleBackColor = true;
-            screenshotButton.Click += screenshotButton_Click;
+            screenshotInputButton.ForeColor = SystemColors.ControlText;
+            screenshotInputButton.Location = new Point(6, 79);
+            screenshotInputButton.Name = "screenshotInputButton";
+            screenshotInputButton.Size = new Size(75, 51);
+            screenshotInputButton.TabIndex = 6;
+            screenshotInputButton.Text = "Screenshot Input";
+            screenshotInputButton.UseVisualStyleBackColor = true;
+            screenshotInputButton.Click += screenshotButton_Click;
             // 
             // splitButton
             // 
@@ -401,6 +403,17 @@
             noSignalRightLabel.TabIndex = 13;
             noSignalRightLabel.Text = "No Signal...";
             // 
+            // screenshotOutputButton
+            // 
+            screenshotOutputButton.ForeColor = SystemColors.ControlText;
+            screenshotOutputButton.Location = new Point(87, 79);
+            screenshotOutputButton.Name = "screenshotOutputButton";
+            screenshotOutputButton.Size = new Size(75, 51);
+            screenshotOutputButton.TabIndex = 7;
+            screenshotOutputButton.Text = "Screenshot Output";
+            screenshotOutputButton.UseVisualStyleBackColor = true;
+            screenshotOutputButton.Click += screenshotOutputButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -463,10 +476,11 @@
         private Label label4;
         private Label noSignalLeftLabel;
         private Label noSignalRightLabel;
-        private Button screenshotButton;
+        private Button screenshotInputButton;
         private ComboBox outputResComboBox;
         private Label label6;
         private ComboBox inputResComboBox;
         private Label label5;
+        private Button screenshotOutputButton;
     }
 }

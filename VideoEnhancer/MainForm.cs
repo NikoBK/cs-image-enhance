@@ -40,6 +40,8 @@ namespace VideoEnhancer
             ProcessQueue = new ConcurrentQueue<(Bitmap, Bitmap)>();
             HideChannelButtons();
             splitButton.Enabled = false;
+            screenshotInputButton.Enabled = false;
+            screenshotOutputButton.Enabled = false;
             gaussKernelSizeTextBox.Text = _gaussKernelSize.ToString();
             gaussSigmaTextBox.Text = _gaussSigmaY.ToString();
             ToggleGaussBlurContent(false);
@@ -106,7 +108,8 @@ namespace VideoEnhancer
                 _capture.Retrieve(processedFrame);
 
                 using var inputFrame = processedFrame.Clone();
-                if (_inputRes.Width != 3840 && _inputRes.Height != 2160) {
+                if (_inputRes.Width != 3840 && _inputRes.Height != 2160)
+                {
                     CvInvoke.Resize(inputFrame, inputFrame, _inputRes);
                 }
 
@@ -126,15 +129,18 @@ namespace VideoEnhancer
                 }
                 else
                 {
-                    if (_gaussBlur) {
+                    if (_gaussBlur)
+                    {
                         CvInvoke.GaussianBlur(processedFrame, processedFrame, new Size(_gaussKernelSize, _gaussKernelSize), _gaussSigmaY);
                     }
 
                     // Use the input frame if we're not doing any processing on the frame.
-                    if (processedFrame.IsEmpty) {
+                    if (processedFrame.IsEmpty)
+                    {
                         ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: processedFrame.ToBitmap()));
                     }
-                    else {
+                    else
+                    {
                         ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: processedFrame.ToBitmap()));
                     }
                 }
@@ -377,7 +383,9 @@ namespace VideoEnhancer
 
         private void screenshotButton_Click(object sender, EventArgs e)
         {
-
+            ImageProcessor imageProcessor = new ImageProcessor();
+            imageProcessor.Show();
+            imageProcessor.CacheFrame(pictureBox1.Image);
         }
 
         private void inputResComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -387,10 +395,13 @@ namespace VideoEnhancer
             var resolution = value.Split('-')[1].Trim().Split('x');
             int width, height;
 
-            if (int.TryParse(resolution[0], out width) && int.TryParse(resolution[1], out height)) {
+            if (int.TryParse(resolution[0], out width) && int.TryParse(resolution[1], out height))
+            {
                 Debug.WriteLine($"Width is: {width} and height is: {height}.");
                 _inputRes = new Size(width, height);
-            } else {
+            }
+            else
+            {
                 inputResComboBox.Text = oldValue;
                 return;
             }
@@ -403,13 +414,23 @@ namespace VideoEnhancer
             var resolution = value.Split('-')[1].Trim().Split('x');
             int width, height;
 
-            if (int.TryParse(resolution[0], out width) && int.TryParse(resolution[1], out height)) {
+            if (int.TryParse(resolution[0], out width) && int.TryParse(resolution[1], out height))
+            {
                 Debug.WriteLine($"Width is: {width} and height is: {height}.");
                 _outputRes = new Size(width, height);
-            } else {
+            }
+            else
+            {
                 outputResComboBox.Text = oldValue;
                 return;
             }
+        }
+
+        private void screenshotOutputButton_Click(object sender, EventArgs e)
+        {
+            ImageProcessor imageProcessor = new ImageProcessor();
+            imageProcessor.Show();
+            imageProcessor.CacheFrame(pictureBox2.Image);
         }
     }
 }
