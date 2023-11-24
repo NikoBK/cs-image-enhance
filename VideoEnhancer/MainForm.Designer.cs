@@ -34,6 +34,7 @@
             startButton = new Button();
             uiTimer = new System.Windows.Forms.Timer(components);
             groupBox1 = new GroupBox();
+            screenshotButton = new Button();
             splitButton = new Button();
             channelOneButton = new Button();
             channelTwoButton = new Button();
@@ -49,11 +50,14 @@
             label1 = new Label();
             gaussBlurCheckBox = new CheckBox();
             gaussKernelSizeTextBox = new TextBox();
-            miscTab = new TabPage();
-            darkModeCheckBox = new CheckBox();
-            label4 = new Label();
             tabPage1 = new TabPage();
+            outputResComboBox = new ComboBox();
+            label6 = new Label();
+            inputResComboBox = new ComboBox();
             label5 = new Label();
+            miscTab = new TabPage();
+            label4 = new Label();
+            darkModeCheckBox = new CheckBox();
             noSignalLeftLabel = new Label();
             noSignalRightLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -62,8 +66,8 @@
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             gaussBlurTab.SuspendLayout();
-            miscTab.SuspendLayout();
             tabPage1.SuspendLayout();
+            miscTab.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -104,6 +108,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(screenshotButton);
             groupBox1.Controls.Add(splitButton);
             groupBox1.Controls.Add(startButton);
             groupBox1.ForeColor = SystemColors.ControlText;
@@ -113,6 +118,17 @@
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Operations";
+            // 
+            // screenshotButton
+            // 
+            screenshotButton.ForeColor = SystemColors.ControlText;
+            screenshotButton.Location = new Point(168, 22);
+            screenshotButton.Name = "screenshotButton";
+            screenshotButton.Size = new Size(75, 51);
+            screenshotButton.TabIndex = 6;
+            screenshotButton.Text = "Screenshot";
+            screenshotButton.UseVisualStyleBackColor = true;
+            screenshotButton.Click += screenshotButton_Click;
             // 
             // splitButton
             // 
@@ -274,6 +290,59 @@
             gaussKernelSizeTextBox.Text = "3";
             gaussKernelSizeTextBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // tabPage1
+            // 
+            tabPage1.BackColor = SystemColors.Control;
+            tabPage1.Controls.Add(outputResComboBox);
+            tabPage1.Controls.Add(label6);
+            tabPage1.Controls.Add(inputResComboBox);
+            tabPage1.Controls.Add(label5);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Size = new Size(442, 117);
+            tabPage1.TabIndex = 2;
+            tabPage1.Text = "Resolution";
+            // 
+            // outputResComboBox
+            // 
+            outputResComboBox.FormattingEnabled = true;
+            outputResComboBox.Items.AddRange(new object[] { "480p - 640x480", "720p - 1280x720", "1080p - 1920x1080", "1440p - 2560x1440", "2160p - 3840x2160" });
+            outputResComboBox.Location = new Point(12, 81);
+            outputResComboBox.Name = "outputResComboBox";
+            outputResComboBox.Size = new Size(121, 23);
+            outputResComboBox.TabIndex = 3;
+            outputResComboBox.Text = "720p - 1280x720";
+            outputResComboBox.SelectedIndexChanged += outputResComboBox_SelectedIndexChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(12, 63);
+            label6.Name = "label6";
+            label6.Size = new Size(140, 15);
+            label6.TabIndex = 2;
+            label6.Text = "Output Video Resolution:";
+            // 
+            // inputResComboBox
+            // 
+            inputResComboBox.FormattingEnabled = true;
+            inputResComboBox.Items.AddRange(new object[] { "480p - 640x480", "720p - 1280x720", "1080p - 1920x1080", "1440p - 2560x1440", "2160p - 3840x2160" });
+            inputResComboBox.Location = new Point(12, 28);
+            inputResComboBox.Name = "inputResComboBox";
+            inputResComboBox.Size = new Size(121, 23);
+            inputResComboBox.TabIndex = 1;
+            inputResComboBox.Text = "2160p - 3840x2160";
+            inputResComboBox.SelectedIndexChanged += inputResComboBox_SelectedIndexChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(12, 10);
+            label5.Name = "label5";
+            label5.Size = new Size(130, 15);
+            label5.TabIndex = 0;
+            label5.Text = "Input Video Resolution:";
+            // 
             // miscTab
             // 
             miscTab.BackColor = SystemColors.Control;
@@ -286,17 +355,6 @@
             miscTab.TabIndex = 1;
             miscTab.Text = "Misc";
             // 
-            // darkModeCheckBox
-            // 
-            darkModeCheckBox.AutoSize = true;
-            darkModeCheckBox.Location = new Point(6, 6);
-            darkModeCheckBox.Name = "darkModeCheckBox";
-            darkModeCheckBox.Size = new Size(84, 19);
-            darkModeCheckBox.TabIndex = 0;
-            darkModeCheckBox.Text = "Dark Mode";
-            darkModeCheckBox.UseVisualStyleBackColor = true;
-            darkModeCheckBox.CheckedChanged += darkModeCheckBox_CheckedChanged;
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -308,26 +366,16 @@
             label4.TabIndex = 6;
             label4.Text = "All settings on this page are\r\nexperimental!";
             // 
-            // tabPage1
+            // darkModeCheckBox
             // 
-            tabPage1.BackColor = SystemColors.Control;
-            tabPage1.Controls.Add(label5);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(442, 117);
-            tabPage1.TabIndex = 2;
-            tabPage1.Text = "Resolution";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            label5.ForeColor = Color.FromArgb(192, 0, 0);
-            label5.Location = new Point(174, 51);
-            label5.Name = "label5";
-            label5.Size = new Size(81, 15);
-            label5.TabIndex = 7;
-            label5.Text = "To be added...";
+            darkModeCheckBox.AutoSize = true;
+            darkModeCheckBox.Location = new Point(6, 6);
+            darkModeCheckBox.Name = "darkModeCheckBox";
+            darkModeCheckBox.Size = new Size(84, 19);
+            darkModeCheckBox.TabIndex = 0;
+            darkModeCheckBox.Text = "Dark Mode";
+            darkModeCheckBox.UseVisualStyleBackColor = true;
+            darkModeCheckBox.CheckedChanged += darkModeCheckBox_CheckedChanged;
             // 
             // noSignalLeftLabel
             // 
@@ -379,10 +427,10 @@
             tabControl1.ResumeLayout(false);
             gaussBlurTab.ResumeLayout(false);
             gaussBlurTab.PerformLayout();
-            miscTab.ResumeLayout(false);
-            miscTab.PerformLayout();
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            miscTab.ResumeLayout(false);
+            miscTab.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -413,8 +461,12 @@
         private Button splitButton;
         private TabPage tabPage1;
         private Label label4;
-        private Label label5;
         private Label noSignalLeftLabel;
         private Label noSignalRightLabel;
+        private Button screenshotButton;
+        private ComboBox outputResComboBox;
+        private Label label6;
+        private ComboBox inputResComboBox;
+        private Label label5;
     }
 }

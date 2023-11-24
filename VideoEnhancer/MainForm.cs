@@ -17,6 +17,8 @@ namespace VideoEnhancer
         private VideoCapture? _capture;
         private DateTime _lastOutput;
         private bool _showChannel1, _showChannel2, _showChannel3;
+        private Size _inputRes = new Size(1280, 720);
+        private Size _outputRes = new Size(1280, 720);
 
         // Color space conversion
         private ColorConversion _colorConversion = ColorConversion.Bgr2Rgb;
@@ -100,12 +102,16 @@ namespace VideoEnhancer
                 Debug.WriteLine($"{dt_prefix}video capture tick!");
 
                 // Auto-dispose objects with .NET Core's using object.
-                using Mat frame = new Mat();
-                _capture.Retrieve(frame);
-                CvInvoke.Resize(frame, frame, new Size(1280, 720));
-
-                // Auto-dispose objects with .NET Core's using object.
                 using Mat processedFrame = new Mat();
+                _capture.Retrieve(processedFrame);
+
+                using var inputFrame = processedFrame.Clone();
+                if (_inputRes.Width != 3840 && _inputRes.Height != 2160) {
+                    CvInvoke.Resize(inputFrame, inputFrame, _inputRes);
+                }
+
+                CvInvoke.Resize(processedFrame, processedFrame, _outputRes);
+
                 if (_showChannel1 || _showChannel2 || _showChannel3)
                 {
                     var chnlIdx = 0;
@@ -113,26 +119,23 @@ namespace VideoEnhancer
                     else if (_showChannel2) { chnlIdx = 1; }
                     else if (_showChannel3) { chnlIdx = 2; }
 
-                    CvInvoke.CvtColor(frame, processedFrame, _colorConversion);
+                    CvInvoke.CvtColor(processedFrame, processedFrame, _colorConversion);
                     using var channel = processedFrame.Split()[chnlIdx];
 
-                    ProcessQueue.Enqueue((input: frame.ToBitmap(), output: channel.ToBitmap()));
+                    ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: channel.ToBitmap()));
                 }
                 else
                 {
-                    if (_gaussBlur)
-                    {
-                        CvInvoke.GaussianBlur(frame, processedFrame, new Size(_gaussKernelSize, _gaussKernelSize), _gaussSigmaY);
+                    if (_gaussBlur) {
+                        CvInvoke.GaussianBlur(processedFrame, processedFrame, new Size(_gaussKernelSize, _gaussKernelSize), _gaussSigmaY);
                     }
 
                     // Use the input frame if we're not doing any processing on the frame.
-                    if (processedFrame.IsEmpty)
-                    {
-                        ProcessQueue.Enqueue((input: frame.ToBitmap(), output: frame.ToBitmap()));
+                    if (processedFrame.IsEmpty) {
+                        ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: processedFrame.ToBitmap()));
                     }
-                    else
-                    {
-                        ProcessQueue.Enqueue((input: frame.ToBitmap(), output: processedFrame.ToBitmap()));
+                    else {
+                        ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: processedFrame.ToBitmap()));
                     }
                 }
 
@@ -370,6 +373,43 @@ namespace VideoEnhancer
         {
             noSignalLeftLabel.Visible = visible;
             noSignalRightLabel.Visible = visible;
+        }
+
+        private void screenshotButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inputResComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = inputResComboBox.Text;
+            string oldValue = value;
+            var resolution = value.Split('-')[1].Trim().Split('x');
+            int width, height;
+
+            if (int.TryParse(resolution[0], out width) && int.TryParse(resolution[1], out height)) {
+                Debug.WriteLine($"Width is: {width} and height is: {height}.");
+                _inputRes = new Size(width, height);
+            } else {
+                inputResComboBox.Text = oldValue;
+                return;
+            }
+        }
+
+        private void outputResComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = outputResComboBox.Text;
+            string oldValue = value;
+            var resolution = value.Split('-')[1].Trim().Split('x');
+            int width, height;
+
+            if (int.TryParse(resolution[0], out width) && int.TryParse(resolution[1], out height)) {
+                Debug.WriteLine($"Width is: {width} and height is: {height}.");
+                _outputRes = new Size(width, height);
+            } else {
+                outputResComboBox.Text = oldValue;
+                return;
+            }
         }
     }
 }
