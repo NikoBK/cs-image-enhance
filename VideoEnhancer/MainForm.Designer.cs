@@ -1,6 +1,6 @@
 ﻿namespace VideoEnhancer
 {
-    partial class Test
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,8 +32,8 @@
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             startButton = new Button();
-            timer1 = new System.Windows.Forms.Timer(components);
             trackBar1 = new TrackBar();
+            uiTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
@@ -69,11 +69,6 @@
             startButton.UseVisualStyleBackColor = true;
             startButton.Click += startButton_Click;
             // 
-            // timer1
-            // 
-            timer1.Interval = 30;
-            timer1.Tick += timer1_Tick;
-            // 
             // trackBar1
             // 
             trackBar1.Location = new Point(130, 493);
@@ -81,7 +76,12 @@
             trackBar1.Size = new Size(240, 45);
             trackBar1.TabIndex = 3;
             // 
-            // Test
+            // uiTimer
+            // 
+            uiTimer.Interval = 25;
+            uiTimer.Tick += uiTimer_Tick;
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -90,7 +90,7 @@
             Controls.Add(startButton);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
-            Name = "Test";
+            Name = "MainForm";
             Text = "Test";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -104,7 +104,7 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Button startButton;
-        private System.Windows.Forms.Timer timer1;
         private TrackBar trackBar1;
+        private System.Windows.Forms.Timer uiTimer;
     }
 }

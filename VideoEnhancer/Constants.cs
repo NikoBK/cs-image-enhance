@@ -9,6 +9,6 @@ namespace VideoEnhancer
     {
         public const int TPS = 25;
         public const int MSPerTick = 1000 / TPS;
-        public const int TimerInterval = 25;
+        public const int UITimerInterval = 25;
     }
 }

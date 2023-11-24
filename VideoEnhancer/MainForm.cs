@@ -9,33 +9,33 @@ using System.Diagnostics;
 
 namespace VideoEnhancer
 {
-    public partial class Test : Form
+    public partial class MainForm : Form
     {
         // Video Processing
         public ConcurrentQueue<(Bitmap input, Bitmap output)> ProcessQueue { get; private set; }
-        private VideoCapture _capture;
+        private VideoCapture? _capture;
         private DateTime _lastOutput;
 
         // Controls
         public int TrackBarValue;
 
-        public Test()
+        public MainForm()
         {
             InitializeComponent();
 
             // Setup form controls
-            timer1.Interval = Constants.TimerInterval;
+            uiTimer.Interval = Constants.UITimerInterval;
             ProcessQueue = new ConcurrentQueue<(Bitmap, Bitmap)>();
         }
 
         /// <summary>
-        /// <see cref="timer1"/> acts as a tick loop for the
+        /// <see cref="uiTimer"/> acts as a tick loop for the
         /// application's UI/Main -Thread and is responseable for
         /// updating all UI to ensure thread safety.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer1_Tick(object sender, EventArgs e)
+        private void uiTimer_Tick(object sender, EventArgs e)
         {
             if (ProcessQueue.TryDequeue(out var pair))
             {
@@ -96,8 +96,7 @@ namespace VideoEnhancer
                 // Update the time when the frame should have been processed.
                 _lastOutput = dt;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Exception Catch", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -120,7 +119,7 @@ namespace VideoEnhancer
 
                 _capture.ImageGrabbed += Capture_ImageGrabbed;
                 _capture.Start();
-                timer1.Start();
+                uiTimer.Start();
             }
         }
     }
