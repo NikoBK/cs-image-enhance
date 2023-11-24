@@ -3,6 +3,8 @@
     author: nikobk
     created on: nov 22 2023
 */
+using Emgu.CV.Structure;
+
 namespace VideoEnhancer
 {
     public static class Constants
@@ -10,5 +12,17 @@ namespace VideoEnhancer
         public const int TPS = 25;
         public const int MSPerTick = 1000 / TPS;
         public const int UITimerInterval = 25;
+
+        public static Dictionary<string, string[]> ColorDomains = new Dictionary<string, string[]>()
+        {
+            { "BGR", new string[]{ "Blue", "Green", "Red" } },
+            { "RGB", new string[]{ "Red", "Green", "Blue" } },
+            { "HSV", new string[]{ "Hue", "Saturation", "Value" } },
+            { "LAB", new string[]{ "Lightness", "Alpha", "Beta" } },
+            { "GRAY", new string[]{ "Gray", "", "" } }
+        };
+
+        public const int DefaultGaussKernelSize = 3;
+        public const int DefaultGaussSigmaY = 0;
     }
 }

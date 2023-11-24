@@ -6,6 +6,7 @@
 using Emgu.CV;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using Emgu.CV.CvEnum;
 
 namespace VideoEnhancer
 {
@@ -15,6 +16,15 @@ namespace VideoEnhancer
         public ConcurrentQueue<(Bitmap input, Bitmap output)> ProcessQueue { get; private set; }
         private VideoCapture? _capture;
         private DateTime _lastOutput;
+        private bool _showChannel1, _showChannel2, _showChannel3;
+
+        // Color space conversion
+        private ColorConversion _colorConversion = ColorConversion.Bgr2Rgb;
+
+        // Gaussian blur
+        private bool _gaussBlur = false;
+        private int _gaussKernelSize = Constants.DefaultGaussKernelSize;
+        private int _gaussSigmaY = Constants.DefaultGaussSigmaY;
 
         // Controls
         public int TrackBarValue;
@@ -26,6 +36,11 @@ namespace VideoEnhancer
             // Setup form controls
             uiTimer.Interval = Constants.UITimerInterval;
             ProcessQueue = new ConcurrentQueue<(Bitmap, Bitmap)>();
+            HideChannelButtons();
+            splitButton.Enabled = false;
+            gaussKernelSizeTextBox.Text = _gaussKernelSize.ToString();
+            gaussSigmaTextBox.Text = _gaussSigmaY.ToString();
+            ToggleGaussBlurContent(false);
         }
 
         /// <summary>
@@ -86,17 +101,42 @@ namespace VideoEnhancer
                 // Auto-dispose objects with .NET Core's using object.
                 using Mat frame = new Mat();
                 _capture.Retrieve(frame);
-                CvInvoke.Resize(frame, frame, new Size(1920, 1080));
+                CvInvoke.Resize(frame, frame, new Size(1280, 720));
 
                 // Auto-dispose objects with .NET Core's using object.
-                using Mat smoothFrame = new Mat();
-                CvInvoke.GaussianBlur(frame, smoothFrame, new Size(17, 17), 0);
-                ProcessQueue.Enqueue((input: frame.ToBitmap(), output: smoothFrame.ToBitmap()));
+                using Mat processedFrame = new Mat();
+                if (_showChannel1 || _showChannel2 || _showChannel3)
+                {
+                    var chnlIdx = 0;
+                    if (_showChannel1) { chnlIdx = 0; }
+                    else if (_showChannel2) { chnlIdx = 1; }
+                    else if (_showChannel3) { chnlIdx = 2; }
+
+                    CvInvoke.CvtColor(frame, processedFrame, _colorConversion);
+                    using var channel = processedFrame.Split()[chnlIdx];
+
+                    ProcessQueue.Enqueue((input: frame.ToBitmap(), output: channel.ToBitmap()));
+                }
+                else
+                {
+                    if (_gaussBlur) {
+                        CvInvoke.GaussianBlur(frame, processedFrame, new Size(_gaussKernelSize, _gaussKernelSize), _gaussSigmaY);
+                    }
+
+                    // Use the input frame if we're not doing any processing on the frame.
+                    if (processedFrame.IsEmpty) {
+                        ProcessQueue.Enqueue((input: frame.ToBitmap(), output: frame.ToBitmap()));
+                    }
+                    else {
+                        ProcessQueue.Enqueue((input: frame.ToBitmap(), output: processedFrame.ToBitmap()));
+                    }
+                }
 
                 // Update the time when the frame should have been processed.
                 _lastOutput = dt;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message, "Exception Catch", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -114,13 +154,188 @@ namespace VideoEnhancer
             ofd.Filter = "Video Files (*.mp4, *.avi,  *.flv)| *.mp4;*.avi*.flv";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                // Spin up the new thread
                 _lastOutput = DateTime.Now;
                 _capture = new VideoCapture(ofd.FileName);
-
                 _capture.ImageGrabbed += Capture_ImageGrabbed;
                 _capture.Start();
+
+                // Enable form controls when the file has been loaded
+                splitButton.Enabled = true;
                 uiTimer.Start();
+                ToggleGaussBlurContent(true);
             }
+        }
+
+        private void splitButton_Click(object sender, EventArgs e)
+        {
+            ShowChannelButtons("Blue", "Green", "Red");
+            splitButton.Enabled = false;
+        }
+
+        private void HideChannelButtons()
+        {
+            channelOneButton.Text = "";
+            channelOneButton.Enabled = false;
+            channelOneButton.Visible = false;
+
+            channelTwoButton.Text = "";
+            channelTwoButton.Enabled = false;
+            channelTwoButton.Visible = false;
+
+            channelThreeButton.Text = "";
+            channelThreeButton.Enabled = false;
+            channelThreeButton.Visible = false;
+
+            channelsCancelButton.Enabled = false;
+            channelsCancelButton.Visible = false;
+
+            channelsComboBox.Text = "";
+            channelsComboBox.Enabled = false;
+            channelsComboBox.Visible = false;
+        }
+
+        private void ShowChannelButtons(string btn1Text, string btn2Text, string btn3Text)
+        {
+            // First channel button
+            channelOneButton.Text = btn1Text;
+            channelOneButton.Enabled = true;
+            channelOneButton.Visible = true;
+
+            // Second channel button
+            channelTwoButton.Text = btn2Text;
+            channelTwoButton.Enabled = true;
+            channelTwoButton.Visible = true;
+
+            // Third channel button
+            channelThreeButton.Text = btn3Text;
+            channelThreeButton.Enabled = true;
+            channelThreeButton.Visible = true;
+
+            // Cancel button (hides channel buttons)
+            channelsCancelButton.Enabled = true;
+            channelsCancelButton.Visible = true;
+
+            // Drop down for color domains
+            channelsComboBox.Text = "BGR";
+            channelsComboBox.Enabled = true;
+            channelsComboBox.Visible = true;
+        }
+
+        private void channelOneButton_Click(object sender, EventArgs e)
+        {
+            channelOneButton.Enabled = false;
+            channelTwoButton.Enabled = true;
+            channelThreeButton.Enabled = true;
+            _showChannel1 = true;
+            _showChannel2 = false;
+            _showChannel3 = false;
+        }
+
+        private void channelTwoButton_Click(object sender, EventArgs e)
+        {
+            channelOneButton.Enabled = true;
+            channelTwoButton.Enabled = false;
+            channelThreeButton.Enabled = true;
+            _showChannel1 = false;
+            _showChannel2 = true;
+            _showChannel3 = false;
+        }
+
+        private void channelThreeButton_Click(object sender, EventArgs e)
+        {
+            channelOneButton.Enabled = true;
+            channelTwoButton.Enabled = true;
+            channelThreeButton.Enabled = false;
+            _showChannel1 = false;
+            _showChannel2 = false;
+            _showChannel3 = true;
+        }
+
+        private void channelsComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Reset the selected color channel
+            _showChannel1 = false;
+            _showChannel2 = false;
+            _showChannel3 = false;
+
+            var domain = channelsComboBox.Text;
+            if (domain == "BGR")
+            {
+                return;
+            }
+
+            var domains = Constants.ColorDomains;
+            if (domains.ContainsKey(domain))
+            {
+                switch (domain)
+                {
+                    case "RGB":
+                        _colorConversion = ColorConversion.Bgr2Rgb;
+                        break;
+                    case "HSV":
+                        _colorConversion = ColorConversion.Bgr2Hsv;
+                        break;
+                    case "LAB":
+                        _colorConversion = ColorConversion.Bgr2Lab;
+                        break;
+                    case "GRAY":
+                        _colorConversion = ColorConversion.Bgr2Gray;
+                        break;
+                }
+            }
+            if (_colorConversion == ColorConversion.Bgr2Gray)
+            {
+                UpdateChannels(domains[domain][0], "", "", true, false, false);
+                return;
+            }
+
+            UpdateChannels(domains[domain][0], domains[domain][1], domains[domain][2]);
+        }
+
+        private void channelsCancelButton_Click(object sender, EventArgs e)
+        {
+            HideChannelButtons();
+            _showChannel1 = _showChannel2 = _showChannel3 = false;
+            splitButton.Enabled = true;
+        }
+
+        private void UpdateChannels(string channel1, string channel2, string channel3, bool btn1 = true, bool btn2 = true, bool btn3 = true)
+        {
+            channelOneButton.Text = channel1;
+            channelTwoButton.Text = channel2;
+            channelThreeButton.Text = channel3;
+
+            channelOneButton.Enabled = btn1;
+            channelOneButton.Visible = btn1;
+            channelTwoButton.Enabled = btn2;
+            channelTwoButton.Visible = btn2;
+            channelThreeButton.Enabled = btn3;
+            channelThreeButton.Visible = btn3;
+        }
+
+        private void gaussBlurCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            int kernelSize;
+            int sigmaY;
+            if (int.TryParse(gaussKernelSizeTextBox.Text, out kernelSize) && int.TryParse(gaussSigmaTextBox.Text, out sigmaY))
+            { 
+                if (!gaussBlurCheckBox.Checked && kernelSize % 2 == 0) {
+                    gaussKernelSizeTextBox.Text = Constants.DefaultGaussKernelSize.ToString();
+                    MessageBox.Show("A Gaussian blur filter must have an uneven kernel size.", "Invalid Gaussian Kernel Size Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    return;
+                }
+                _gaussKernelSize = kernelSize;
+                _gaussSigmaY = sigmaY;
+                _gaussBlur = gaussBlurCheckBox.Checked;
+            }
+        }
+
+        public void ToggleGaussBlurContent(bool enabled)
+        {
+            gaussBlurCheckBox.Enabled = enabled;
+            gaussKernelSizeTextBox.Enabled = enabled;
+            gaussSigmaTextBox.Enabled = enabled;
         }
     }
 }
