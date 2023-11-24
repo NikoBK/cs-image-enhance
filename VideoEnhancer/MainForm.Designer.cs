@@ -54,6 +54,8 @@
             label4 = new Label();
             tabPage1 = new TabPage();
             label5 = new Label();
+            noSignalLeftLabel = new Label();
+            noSignalRightLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -66,7 +68,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.Black;
+            pictureBox1.BackColor = SystemColors.Desktop;
             pictureBox1.Location = new Point(12, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(745, 426);
@@ -76,7 +78,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = Color.Black;
+            pictureBox2.BackColor = SystemColors.Desktop;
             pictureBox2.Location = new Point(770, 12);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(745, 426);
@@ -327,12 +329,38 @@
             label5.TabIndex = 7;
             label5.Text = "To be added...";
             // 
+            // noSignalLeftLabel
+            // 
+            noSignalLeftLabel.AutoSize = true;
+            noSignalLeftLabel.BackColor = SystemColors.Desktop;
+            noSignalLeftLabel.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            noSignalLeftLabel.ForeColor = SystemColors.ButtonShadow;
+            noSignalLeftLabel.Location = new Point(295, 196);
+            noSignalLeftLabel.Name = "noSignalLeftLabel";
+            noSignalLeftLabel.Size = new Size(179, 45);
+            noSignalLeftLabel.TabIndex = 12;
+            noSignalLeftLabel.Text = "No Signal...";
+            // 
+            // noSignalRightLabel
+            // 
+            noSignalRightLabel.AutoSize = true;
+            noSignalRightLabel.BackColor = SystemColors.Desktop;
+            noSignalRightLabel.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            noSignalRightLabel.ForeColor = SystemColors.ButtonShadow;
+            noSignalRightLabel.Location = new Point(1041, 196);
+            noSignalRightLabel.Name = "noSignalRightLabel";
+            noSignalRightLabel.Size = new Size(179, 45);
+            noSignalRightLabel.TabIndex = 13;
+            noSignalRightLabel.Text = "No Signal...";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1526, 656);
+            Controls.Add(noSignalRightLabel);
+            Controls.Add(noSignalLeftLabel);
             Controls.Add(groupBox2);
             Controls.Add(channelsCancelButton);
             Controls.Add(channelsComboBox);
@@ -356,6 +384,7 @@
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -385,5 +414,7 @@
         private TabPage tabPage1;
         private Label label4;
         private Label label5;
+        private Label noSignalLeftLabel;
+        private Label noSignalRightLabel;
     }
 }

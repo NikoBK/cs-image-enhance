@@ -41,6 +41,7 @@ namespace VideoEnhancer
             gaussKernelSizeTextBox.Text = _gaussKernelSize.ToString();
             gaussSigmaTextBox.Text = _gaussSigmaY.ToString();
             ToggleGaussBlurContent(false);
+            ToggleSignalLabels(true);
         }
 
         /// <summary>
@@ -167,6 +168,7 @@ namespace VideoEnhancer
                 splitButton.Enabled = true;
                 uiTimer.Start();
                 ToggleGaussBlurContent(true);
+                ToggleSignalLabels(false);
             }
         }
 
@@ -361,6 +363,12 @@ namespace VideoEnhancer
         {
             var controls = control.Controls.Cast<Control>();
             return controls.SelectMany(ctrl => GetAll(ctrl, type)).Concat(controls).Where(c => c.GetType() == type);
+        }
+
+        public void ToggleSignalLabels(bool visible)
+        {
+            noSignalLeftLabel.Visible = visible;
+            noSignalRightLabel.Visible = visible;
         }
     }
 }
