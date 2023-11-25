@@ -12,6 +12,9 @@ namespace VideoEnhancer
 {
     public partial class MainForm : Form
     {
+        // General Stuff
+        private bool _initialized = false;
+
         // Video Processing
         public ConcurrentQueue<(Bitmap input, Bitmap output)> ProcessQueue { get; private set; }
         private VideoCapture? _capture;
@@ -31,6 +34,9 @@ namespace VideoEnhancer
         // Image Enhancement
         private bool _useCLAHE = false;
 
+        // White Balancing & Color Correction
+        private float _brightnessMultiplier = 1.2f;
+
         public MainForm()
         {
             InitializeComponent();
@@ -47,7 +53,8 @@ namespace VideoEnhancer
         {
             // Handle UI we only set when initializing
             // on form instantiation.
-            if (!active) {
+            if (!active)
+            {
                 HideChannelButtons();
                 exportButton.Enabled = false;
             }
@@ -59,8 +66,17 @@ namespace VideoEnhancer
             claheCheckBox.Enabled = active;
             gaussKernelSizeTextBox.Text = _gaussKernelSize.ToString();
             gaussSigmaTextBox.Text = _gaussSigmaY.ToString();
+            whiteBalanceCheckBox.Enabled = active;
+            colorCompCheckBox.Enabled = active;
+            brightnessMultTextBox.Enabled = active;
+            colorCorrectionComboBox.Enabled = active;
             ToggleGaussBlurContent(active);
             ToggleSignalLabels(!active);
+
+            if (!_initialized)
+            {
+                _initialized = true;
+            }
         }
 
         /// <summary>
@@ -460,6 +476,11 @@ namespace VideoEnhancer
         private void claheCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             _useCLAHE = claheCheckBox.Checked;
+        }
+
+        private void ToggleBrightnessMultiplier(bool active)
+        {
+            // TODO: Implement something here.
         }
     }
 }

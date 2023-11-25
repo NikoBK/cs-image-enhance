@@ -46,34 +46,47 @@
             groupBox2 = new GroupBox();
             tabControl1 = new TabControl();
             sharpnessTab = new TabPage();
+            label8 = new Label();
             claheCheckBox = new CheckBox();
             colorCorrectionTab = new TabPage();
+            brightnessMultTextBox = new TextBox();
+            label9 = new Label();
+            colorCompCheckBox = new CheckBox();
+            colorCorrectionComboBox = new ComboBox();
+            label7 = new Label();
+            whiteBalanceCheckBox = new CheckBox();
             resolutionsTab = new TabPage();
             outputResComboBox = new ComboBox();
             label6 = new Label();
             inputResComboBox = new ComboBox();
             label5 = new Label();
-            gaussBlurTab = new TabPage();
+            miscTab = new TabPage();
+            label4 = new Label();
+            darkModeCheckBox = new CheckBox();
             label3 = new Label();
             label2 = new Label();
             gaussSigmaTextBox = new TextBox();
             label1 = new Label();
             gaussBlurCheckBox = new CheckBox();
             gaussKernelSizeTextBox = new TextBox();
-            miscTab = new TabPage();
-            label4 = new Label();
-            darkModeCheckBox = new CheckBox();
             noSignalLeftLabel = new Label();
             noSignalRightLabel = new Label();
+            groupBox3 = new GroupBox();
+            tabControl2 = new TabControl();
+            gaussTabPage = new TabPage();
+            medianTabPage = new TabPage();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             sharpnessTab.SuspendLayout();
+            colorCorrectionTab.SuspendLayout();
             resolutionsTab.SuspendLayout();
-            gaussBlurTab.SuspendLayout();
             miscTab.SuspendLayout();
+            groupBox3.SuspendLayout();
+            tabControl2.SuspendLayout();
+            gaussTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -230,7 +243,7 @@
             groupBox2.Controls.Add(tabControl1);
             groupBox2.Location = new Point(295, 478);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(462, 166);
+            groupBox2.Size = new Size(381, 166);
             groupBox2.TabIndex = 11;
             groupBox2.TabStop = false;
             groupBox2.Text = "Adjustments";
@@ -240,43 +253,114 @@
             tabControl1.Controls.Add(sharpnessTab);
             tabControl1.Controls.Add(colorCorrectionTab);
             tabControl1.Controls.Add(resolutionsTab);
-            tabControl1.Controls.Add(gaussBlurTab);
             tabControl1.Controls.Add(miscTab);
             tabControl1.Location = new Point(6, 15);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(450, 145);
+            tabControl1.Size = new Size(369, 145);
             tabControl1.TabIndex = 12;
             // 
             // sharpnessTab
             // 
             sharpnessTab.BackColor = SystemColors.Control;
+            sharpnessTab.Controls.Add(label8);
             sharpnessTab.Controls.Add(claheCheckBox);
             sharpnessTab.Location = new Point(4, 24);
             sharpnessTab.Name = "sharpnessTab";
-            sharpnessTab.Size = new Size(442, 117);
+            sharpnessTab.Size = new Size(361, 117);
             sharpnessTab.TabIndex = 3;
             sharpnessTab.Text = "Sharpness";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 8.25F, FontStyle.Italic, GraphicsUnit.Point);
+            label8.Location = new Point(6, 28);
+            label8.Name = "label8";
+            label8.Size = new Size(252, 13);
+            label8.TabIndex = 1;
+            label8.Text = "(Contrast Limited Adaptive Histogram Equalization)";
             // 
             // claheCheckBox
             // 
             claheCheckBox.AutoSize = true;
             claheCheckBox.Location = new Point(6, 6);
             claheCheckBox.Name = "claheCheckBox";
-            claheCheckBox.Size = new Size(356, 19);
+            claheCheckBox.Size = new Size(85, 19);
             claheCheckBox.TabIndex = 0;
-            claheCheckBox.Text = "Use CLAHE (Contrast Limited Adaptive Histogram Equalization";
+            claheCheckBox.Text = "Use CLAHE";
             claheCheckBox.UseVisualStyleBackColor = true;
             claheCheckBox.CheckedChanged += claheCheckBox_CheckedChanged;
             // 
             // colorCorrectionTab
             // 
             colorCorrectionTab.BackColor = SystemColors.Control;
+            colorCorrectionTab.Controls.Add(brightnessMultTextBox);
+            colorCorrectionTab.Controls.Add(label9);
+            colorCorrectionTab.Controls.Add(colorCompCheckBox);
+            colorCorrectionTab.Controls.Add(colorCorrectionComboBox);
+            colorCorrectionTab.Controls.Add(label7);
+            colorCorrectionTab.Controls.Add(whiteBalanceCheckBox);
             colorCorrectionTab.Location = new Point(4, 24);
             colorCorrectionTab.Name = "colorCorrectionTab";
-            colorCorrectionTab.Size = new Size(442, 117);
+            colorCorrectionTab.Size = new Size(361, 117);
             colorCorrectionTab.TabIndex = 4;
             colorCorrectionTab.Text = "Color Correction";
+            // 
+            // brightnessMultTextBox
+            // 
+            brightnessMultTextBox.Location = new Point(25, 62);
+            brightnessMultTextBox.Name = "brightnessMultTextBox";
+            brightnessMultTextBox.Size = new Size(116, 23);
+            brightnessMultTextBox.TabIndex = 6;
+            brightnessMultTextBox.Text = "1.2";
+            brightnessMultTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(25, 43);
+            label9.Name = "label9";
+            label9.Size = new Size(116, 15);
+            label9.TabIndex = 5;
+            label9.Text = "Brightness Multiplier";
+            // 
+            // colorCompCheckBox
+            // 
+            colorCompCheckBox.AutoSize = true;
+            colorCompCheckBox.Location = new Point(185, 6);
+            colorCompCheckBox.Name = "colorCompCheckBox";
+            colorCompCheckBox.Size = new Size(158, 19);
+            colorCompCheckBox.TabIndex = 3;
+            colorCompCheckBox.Text = "Use Color Compensation";
+            colorCompCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // colorCorrectionComboBox
+            // 
+            colorCorrectionComboBox.FormattingEnabled = true;
+            colorCorrectionComboBox.Location = new Point(185, 62);
+            colorCorrectionComboBox.Name = "colorCorrectionComboBox";
+            colorCorrectionComboBox.Size = new Size(135, 23);
+            colorCorrectionComboBox.TabIndex = 2;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(185, 44);
+            label7.Name = "label7";
+            label7.Size = new Size(145, 15);
+            label7.TabIndex = 1;
+            label7.Text = "Channel Color Correction:";
+            // 
+            // whiteBalanceCheckBox
+            // 
+            whiteBalanceCheckBox.AutoSize = true;
+            whiteBalanceCheckBox.Location = new Point(6, 6);
+            whiteBalanceCheckBox.Name = "whiteBalanceCheckBox";
+            whiteBalanceCheckBox.Size = new Size(135, 19);
+            whiteBalanceCheckBox.TabIndex = 0;
+            whiteBalanceCheckBox.Text = "Apply White Balance";
+            whiteBalanceCheckBox.UseVisualStyleBackColor = true;
             // 
             // resolutionsTab
             // 
@@ -287,7 +371,7 @@
             resolutionsTab.Controls.Add(label5);
             resolutionsTab.Location = new Point(4, 24);
             resolutionsTab.Name = "resolutionsTab";
-            resolutionsTab.Size = new Size(442, 117);
+            resolutionsTab.Size = new Size(361, 117);
             resolutionsTab.TabIndex = 2;
             resolutionsTab.Text = "Resolution";
             // 
@@ -331,21 +415,39 @@
             label5.TabIndex = 0;
             label5.Text = "Input Video Resolution:";
             // 
-            // gaussBlurTab
+            // miscTab
             // 
-            gaussBlurTab.BackColor = SystemColors.Control;
-            gaussBlurTab.Controls.Add(label3);
-            gaussBlurTab.Controls.Add(label2);
-            gaussBlurTab.Controls.Add(gaussSigmaTextBox);
-            gaussBlurTab.Controls.Add(label1);
-            gaussBlurTab.Controls.Add(gaussBlurCheckBox);
-            gaussBlurTab.Controls.Add(gaussKernelSizeTextBox);
-            gaussBlurTab.Location = new Point(4, 24);
-            gaussBlurTab.Name = "gaussBlurTab";
-            gaussBlurTab.Padding = new Padding(3);
-            gaussBlurTab.Size = new Size(442, 117);
-            gaussBlurTab.TabIndex = 0;
-            gaussBlurTab.Text = "Gaussian Blur";
+            miscTab.BackColor = SystemColors.Control;
+            miscTab.Controls.Add(label4);
+            miscTab.Controls.Add(darkModeCheckBox);
+            miscTab.Location = new Point(4, 24);
+            miscTab.Name = "miscTab";
+            miscTab.Padding = new Padding(3);
+            miscTab.Size = new Size(361, 117);
+            miscTab.TabIndex = 1;
+            miscTab.Text = "Misc";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            label4.ForeColor = Color.FromArgb(192, 0, 0);
+            label4.Location = new Point(6, 28);
+            label4.Name = "label4";
+            label4.Size = new Size(153, 30);
+            label4.TabIndex = 6;
+            label4.Text = "All settings on this page are\r\nexperimental!";
+            // 
+            // darkModeCheckBox
+            // 
+            darkModeCheckBox.AutoSize = true;
+            darkModeCheckBox.Location = new Point(6, 6);
+            darkModeCheckBox.Name = "darkModeCheckBox";
+            darkModeCheckBox.Size = new Size(84, 19);
+            darkModeCheckBox.TabIndex = 0;
+            darkModeCheckBox.Text = "Dark Mode";
+            darkModeCheckBox.UseVisualStyleBackColor = true;
+            darkModeCheckBox.CheckedChanged += darkModeCheckBox_CheckedChanged;
             // 
             // label3
             // 
@@ -405,40 +507,6 @@
             gaussKernelSizeTextBox.Text = "3";
             gaussKernelSizeTextBox.TextAlign = HorizontalAlignment.Center;
             // 
-            // miscTab
-            // 
-            miscTab.BackColor = SystemColors.Control;
-            miscTab.Controls.Add(label4);
-            miscTab.Controls.Add(darkModeCheckBox);
-            miscTab.Location = new Point(4, 24);
-            miscTab.Name = "miscTab";
-            miscTab.Padding = new Padding(3);
-            miscTab.Size = new Size(442, 117);
-            miscTab.TabIndex = 1;
-            miscTab.Text = "Misc";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            label4.ForeColor = Color.FromArgb(192, 0, 0);
-            label4.Location = new Point(6, 28);
-            label4.Name = "label4";
-            label4.Size = new Size(153, 30);
-            label4.TabIndex = 6;
-            label4.Text = "All settings on this page are\r\nexperimental!";
-            // 
-            // darkModeCheckBox
-            // 
-            darkModeCheckBox.AutoSize = true;
-            darkModeCheckBox.Location = new Point(6, 6);
-            darkModeCheckBox.Name = "darkModeCheckBox";
-            darkModeCheckBox.Size = new Size(84, 19);
-            darkModeCheckBox.TabIndex = 0;
-            darkModeCheckBox.Text = "Dark Mode";
-            darkModeCheckBox.UseVisualStyleBackColor = true;
-            darkModeCheckBox.CheckedChanged += darkModeCheckBox_CheckedChanged;
-            // 
             // noSignalLeftLabel
             // 
             noSignalLeftLabel.AutoSize = true;
@@ -463,12 +531,59 @@
             noSignalRightLabel.TabIndex = 13;
             noSignalRightLabel.Text = "No Signal...";
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(tabControl2);
+            groupBox3.Location = new Point(682, 478);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(356, 166);
+            groupBox3.TabIndex = 14;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Filters";
+            // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(gaussTabPage);
+            tabControl2.Controls.Add(medianTabPage);
+            tabControl2.Location = new Point(6, 15);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(343, 145);
+            tabControl2.TabIndex = 0;
+            // 
+            // gaussTabPage
+            // 
+            gaussTabPage.BackColor = SystemColors.Control;
+            gaussTabPage.Controls.Add(label3);
+            gaussTabPage.Controls.Add(gaussBlurCheckBox);
+            gaussTabPage.Controls.Add(label2);
+            gaussTabPage.Controls.Add(gaussKernelSizeTextBox);
+            gaussTabPage.Controls.Add(gaussSigmaTextBox);
+            gaussTabPage.Controls.Add(label1);
+            gaussTabPage.Location = new Point(4, 24);
+            gaussTabPage.Name = "gaussTabPage";
+            gaussTabPage.Padding = new Padding(3);
+            gaussTabPage.Size = new Size(335, 117);
+            gaussTabPage.TabIndex = 0;
+            gaussTabPage.Text = "Gaussian Blur";
+            // 
+            // medianTabPage
+            // 
+            medianTabPage.BackColor = SystemColors.Control;
+            medianTabPage.Location = new Point(4, 24);
+            medianTabPage.Name = "medianTabPage";
+            medianTabPage.Padding = new Padding(3);
+            medianTabPage.Size = new Size(335, 117);
+            medianTabPage.TabIndex = 1;
+            medianTabPage.Text = "Median Filter";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1526, 656);
+            Controls.Add(groupBox3);
             Controls.Add(noSignalRightLabel);
             Controls.Add(noSignalLeftLabel);
             Controls.Add(groupBox2);
@@ -489,12 +604,16 @@
             tabControl1.ResumeLayout(false);
             sharpnessTab.ResumeLayout(false);
             sharpnessTab.PerformLayout();
+            colorCorrectionTab.ResumeLayout(false);
+            colorCorrectionTab.PerformLayout();
             resolutionsTab.ResumeLayout(false);
             resolutionsTab.PerformLayout();
-            gaussBlurTab.ResumeLayout(false);
-            gaussBlurTab.PerformLayout();
             miscTab.ResumeLayout(false);
             miscTab.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            tabControl2.ResumeLayout(false);
+            gaussTabPage.ResumeLayout(false);
+            gaussTabPage.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -513,7 +632,6 @@
         private Button channelsCancelButton;
         private GroupBox groupBox2;
         private TabControl tabControl1;
-        private TabPage gaussBlurTab;
         private TabPage miscTab;
         private Label label3;
         private Label label2;
@@ -537,5 +655,16 @@
         private TabPage sharpnessTab;
         private TabPage colorCorrectionTab;
         private CheckBox claheCheckBox;
+        private CheckBox colorCompCheckBox;
+        private ComboBox colorCorrectionComboBox;
+        private Label label7;
+        private CheckBox whiteBalanceCheckBox;
+        private Label label8;
+        private GroupBox groupBox3;
+        private TabControl tabControl2;
+        private TabPage gaussTabPage;
+        private TabPage medianTabPage;
+        private Label label9;
+        private TextBox brightnessMultTextBox;
     }
 }
