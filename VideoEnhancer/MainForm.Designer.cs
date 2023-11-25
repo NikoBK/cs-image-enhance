@@ -34,6 +34,7 @@
             startButton = new Button();
             uiTimer = new System.Windows.Forms.Timer(components);
             groupBox1 = new GroupBox();
+            exportButton = new Button();
             screenshotOutputButton = new Button();
             screenshotInputButton = new Button();
             splitButton = new Button();
@@ -44,6 +45,14 @@
             channelsCancelButton = new Button();
             groupBox2 = new GroupBox();
             tabControl1 = new TabControl();
+            sharpnessTab = new TabPage();
+            claheCheckBox = new CheckBox();
+            colorCorrectionTab = new TabPage();
+            resolutionsTab = new TabPage();
+            outputResComboBox = new ComboBox();
+            label6 = new Label();
+            inputResComboBox = new ComboBox();
+            label5 = new Label();
             gaussBlurTab = new TabPage();
             label3 = new Label();
             label2 = new Label();
@@ -51,24 +60,19 @@
             label1 = new Label();
             gaussBlurCheckBox = new CheckBox();
             gaussKernelSizeTextBox = new TextBox();
-            tabPage1 = new TabPage();
-            outputResComboBox = new ComboBox();
-            label6 = new Label();
-            inputResComboBox = new ComboBox();
-            label5 = new Label();
             miscTab = new TabPage();
             label4 = new Label();
             darkModeCheckBox = new CheckBox();
             noSignalLeftLabel = new Label();
             noSignalRightLabel = new Label();
-            exportButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
+            sharpnessTab.SuspendLayout();
+            resolutionsTab.SuspendLayout();
             gaussBlurTab.SuspendLayout();
-            tabPage1.SuspendLayout();
             miscTab.SuspendLayout();
             SuspendLayout();
             // 
@@ -122,6 +126,17 @@
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Operations";
+            // 
+            // exportButton
+            // 
+            exportButton.ForeColor = SystemColors.ControlText;
+            exportButton.Location = new Point(168, 22);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new Size(75, 51);
+            exportButton.TabIndex = 8;
+            exportButton.Text = "Export";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += exportButton_Click;
             // 
             // screenshotOutputButton
             // 
@@ -222,14 +237,99 @@
             // 
             // tabControl1
             // 
+            tabControl1.Controls.Add(sharpnessTab);
+            tabControl1.Controls.Add(colorCorrectionTab);
+            tabControl1.Controls.Add(resolutionsTab);
             tabControl1.Controls.Add(gaussBlurTab);
-            tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(miscTab);
             tabControl1.Location = new Point(6, 15);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(450, 145);
             tabControl1.TabIndex = 12;
+            // 
+            // sharpnessTab
+            // 
+            sharpnessTab.BackColor = SystemColors.Control;
+            sharpnessTab.Controls.Add(claheCheckBox);
+            sharpnessTab.Location = new Point(4, 24);
+            sharpnessTab.Name = "sharpnessTab";
+            sharpnessTab.Size = new Size(442, 117);
+            sharpnessTab.TabIndex = 3;
+            sharpnessTab.Text = "Sharpness";
+            // 
+            // claheCheckBox
+            // 
+            claheCheckBox.AutoSize = true;
+            claheCheckBox.Location = new Point(6, 6);
+            claheCheckBox.Name = "claheCheckBox";
+            claheCheckBox.Size = new Size(356, 19);
+            claheCheckBox.TabIndex = 0;
+            claheCheckBox.Text = "Use CLAHE (Contrast Limited Adaptive Histogram Equalization";
+            claheCheckBox.UseVisualStyleBackColor = true;
+            claheCheckBox.CheckedChanged += claheCheckBox_CheckedChanged;
+            // 
+            // colorCorrectionTab
+            // 
+            colorCorrectionTab.BackColor = SystemColors.Control;
+            colorCorrectionTab.Location = new Point(4, 24);
+            colorCorrectionTab.Name = "colorCorrectionTab";
+            colorCorrectionTab.Size = new Size(442, 117);
+            colorCorrectionTab.TabIndex = 4;
+            colorCorrectionTab.Text = "Color Correction";
+            // 
+            // resolutionsTab
+            // 
+            resolutionsTab.BackColor = SystemColors.Control;
+            resolutionsTab.Controls.Add(outputResComboBox);
+            resolutionsTab.Controls.Add(label6);
+            resolutionsTab.Controls.Add(inputResComboBox);
+            resolutionsTab.Controls.Add(label5);
+            resolutionsTab.Location = new Point(4, 24);
+            resolutionsTab.Name = "resolutionsTab";
+            resolutionsTab.Size = new Size(442, 117);
+            resolutionsTab.TabIndex = 2;
+            resolutionsTab.Text = "Resolution";
+            // 
+            // outputResComboBox
+            // 
+            outputResComboBox.FormattingEnabled = true;
+            outputResComboBox.Items.AddRange(new object[] { "480p - 640x480", "720p - 1280x720", "1080p - 1920x1080", "1440p - 2560x1440", "2160p - 3840x2160" });
+            outputResComboBox.Location = new Point(12, 81);
+            outputResComboBox.Name = "outputResComboBox";
+            outputResComboBox.Size = new Size(121, 23);
+            outputResComboBox.TabIndex = 3;
+            outputResComboBox.Text = "720p - 1280x720";
+            outputResComboBox.SelectedIndexChanged += outputResComboBox_SelectedIndexChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(12, 63);
+            label6.Name = "label6";
+            label6.Size = new Size(140, 15);
+            label6.TabIndex = 2;
+            label6.Text = "Output Video Resolution:";
+            // 
+            // inputResComboBox
+            // 
+            inputResComboBox.FormattingEnabled = true;
+            inputResComboBox.Items.AddRange(new object[] { "480p - 640x480", "720p - 1280x720", "1080p - 1920x1080", "1440p - 2560x1440", "2160p - 3840x2160" });
+            inputResComboBox.Location = new Point(12, 28);
+            inputResComboBox.Name = "inputResComboBox";
+            inputResComboBox.Size = new Size(121, 23);
+            inputResComboBox.TabIndex = 1;
+            inputResComboBox.Text = "2160p - 3840x2160";
+            inputResComboBox.SelectedIndexChanged += inputResComboBox_SelectedIndexChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(12, 10);
+            label5.Name = "label5";
+            label5.Size = new Size(130, 15);
+            label5.TabIndex = 0;
+            label5.Text = "Input Video Resolution:";
             // 
             // gaussBlurTab
             // 
@@ -305,59 +405,6 @@
             gaussKernelSizeTextBox.Text = "3";
             gaussKernelSizeTextBox.TextAlign = HorizontalAlignment.Center;
             // 
-            // tabPage1
-            // 
-            tabPage1.BackColor = SystemColors.Control;
-            tabPage1.Controls.Add(outputResComboBox);
-            tabPage1.Controls.Add(label6);
-            tabPage1.Controls.Add(inputResComboBox);
-            tabPage1.Controls.Add(label5);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Size = new Size(442, 117);
-            tabPage1.TabIndex = 2;
-            tabPage1.Text = "Resolution";
-            // 
-            // outputResComboBox
-            // 
-            outputResComboBox.FormattingEnabled = true;
-            outputResComboBox.Items.AddRange(new object[] { "480p - 640x480", "720p - 1280x720", "1080p - 1920x1080", "1440p - 2560x1440", "2160p - 3840x2160" });
-            outputResComboBox.Location = new Point(12, 81);
-            outputResComboBox.Name = "outputResComboBox";
-            outputResComboBox.Size = new Size(121, 23);
-            outputResComboBox.TabIndex = 3;
-            outputResComboBox.Text = "720p - 1280x720";
-            outputResComboBox.SelectedIndexChanged += outputResComboBox_SelectedIndexChanged;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(12, 63);
-            label6.Name = "label6";
-            label6.Size = new Size(140, 15);
-            label6.TabIndex = 2;
-            label6.Text = "Output Video Resolution:";
-            // 
-            // inputResComboBox
-            // 
-            inputResComboBox.FormattingEnabled = true;
-            inputResComboBox.Items.AddRange(new object[] { "480p - 640x480", "720p - 1280x720", "1080p - 1920x1080", "1440p - 2560x1440", "2160p - 3840x2160" });
-            inputResComboBox.Location = new Point(12, 28);
-            inputResComboBox.Name = "inputResComboBox";
-            inputResComboBox.Size = new Size(121, 23);
-            inputResComboBox.TabIndex = 1;
-            inputResComboBox.Text = "2160p - 3840x2160";
-            inputResComboBox.SelectedIndexChanged += inputResComboBox_SelectedIndexChanged;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(12, 10);
-            label5.Name = "label5";
-            label5.Size = new Size(130, 15);
-            label5.TabIndex = 0;
-            label5.Text = "Input Video Resolution:";
-            // 
             // miscTab
             // 
             miscTab.BackColor = SystemColors.Control;
@@ -416,17 +463,6 @@
             noSignalRightLabel.TabIndex = 13;
             noSignalRightLabel.Text = "No Signal...";
             // 
-            // exportButton
-            // 
-            exportButton.ForeColor = SystemColors.ControlText;
-            exportButton.Location = new Point(168, 22);
-            exportButton.Name = "exportButton";
-            exportButton.Size = new Size(75, 51);
-            exportButton.TabIndex = 8;
-            exportButton.Text = "Export";
-            exportButton.UseVisualStyleBackColor = true;
-            exportButton.Click += exportButton_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -451,10 +487,12 @@
             groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
+            sharpnessTab.ResumeLayout(false);
+            sharpnessTab.PerformLayout();
+            resolutionsTab.ResumeLayout(false);
+            resolutionsTab.PerformLayout();
             gaussBlurTab.ResumeLayout(false);
             gaussBlurTab.PerformLayout();
-            tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
             miscTab.ResumeLayout(false);
             miscTab.PerformLayout();
             ResumeLayout(false);
@@ -485,7 +523,7 @@
         private TextBox gaussKernelSizeTextBox;
         private CheckBox darkModeCheckBox;
         private Button splitButton;
-        private TabPage tabPage1;
+        private TabPage resolutionsTab;
         private Label label4;
         private Label noSignalLeftLabel;
         private Label noSignalRightLabel;
@@ -496,5 +534,8 @@
         private Label label5;
         private Button screenshotOutputButton;
         private Button exportButton;
+        private TabPage sharpnessTab;
+        private TabPage colorCorrectionTab;
+        private CheckBox claheCheckBox;
     }
 }

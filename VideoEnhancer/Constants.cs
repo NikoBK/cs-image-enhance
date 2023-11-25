@@ -1,7 +1,7 @@
 ﻿/*
     file: Constants.cs
-    author: nikobk
-    created on: nov 22 2023
+    author: NikoBK
+    created on: nov 24 2023
 */
 using Emgu.CV.Structure;
 

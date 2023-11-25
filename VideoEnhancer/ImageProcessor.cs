@@ -1,4 +1,9 @@
-﻿using Emgu.CV;
+﻿/*
+    file: ImageProcessor.cs
+    author: NikoBK
+    created on: nov 22 2023
+*/
+using Emgu.CV;
 using Emgu.CV.Structure;
 using System.Drawing.Imaging;
 using System.Security.Cryptography;

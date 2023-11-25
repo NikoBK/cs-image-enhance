@@ -1,6 +1,6 @@
 ﻿/*
     file: Test.cs
-    author: nikobk
+    author: NikoBK
     created on: nov 22 2023
 */
 using Emgu.CV;
@@ -28,25 +28,39 @@ namespace VideoEnhancer
         private int _gaussKernelSize = Constants.DefaultGaussKernelSize;
         private int _gaussSigmaY = Constants.DefaultGaussSigmaY;
 
-        // Controls
-        public int TrackBarValue;
+        // Image Enhancement
+        private bool _useCLAHE = false;
 
         public MainForm()
         {
             InitializeComponent();
 
-            // Setup form controls
+            // Initialize variables
             uiTimer.Interval = Constants.UITimerInterval;
             ProcessQueue = new ConcurrentQueue<(Bitmap, Bitmap)>();
-            HideChannelButtons();
-            splitButton.Enabled = false;
-            screenshotInputButton.Enabled = false;
-            screenshotOutputButton.Enabled = false;
+
+            // Initialize all controls
+            InitializeUI(active: false);
+        }
+
+        private void InitializeUI(bool active)
+        {
+            // Handle UI we only set when initializing
+            // on form instantiation.
+            if (!active) {
+                HideChannelButtons();
+                exportButton.Enabled = false;
+            }
+            inputResComboBox.Enabled = active;
+            outputResComboBox.Enabled = active;
+            splitButton.Enabled = active;
+            screenshotInputButton.Enabled = active;
+            screenshotOutputButton.Enabled = active;
+            claheCheckBox.Enabled = active;
             gaussKernelSizeTextBox.Text = _gaussKernelSize.ToString();
             gaussSigmaTextBox.Text = _gaussSigmaY.ToString();
-            ToggleGaussBlurContent(false);
-            ToggleSignalLabels(true);
-            exportButton.Enabled = false;
+            ToggleGaussBlurContent(active);
+            ToggleSignalLabels(!active);
         }
 
         /// <summary>
@@ -175,13 +189,11 @@ namespace VideoEnhancer
                 _capture.ImageGrabbed += Capture_ImageGrabbed;
                 _capture.Start();
 
-                // Enable form controls when the file has been loaded
-                splitButton.Enabled = true;
-                screenshotInputButton.Enabled = true;
-                screenshotOutputButton.Enabled = true;
+                // Start timer on UI thread
                 uiTimer.Start();
-                ToggleGaussBlurContent(true);
-                ToggleSignalLabels(false);
+
+                // Enable form controls when the file has been loaded
+                InitializeUI(true);
             }
             else
             {
@@ -443,6 +455,11 @@ namespace VideoEnhancer
         private void exportButton_Click(object sender, EventArgs e)
         {
             // TODO: Implement something here.
+        }
+
+        private void claheCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _useCLAHE = claheCheckBox.Checked;
         }
     }
 }
