@@ -176,9 +176,14 @@ namespace VideoEnhancer
 
                 // Enable form controls when the file has been loaded
                 splitButton.Enabled = true;
+                screenshotInputButton.Enabled = true;
+                screenshotOutputButton.Enabled = true;
                 uiTimer.Start();
                 ToggleGaussBlurContent(true);
                 ToggleSignalLabels(false);
+            }
+            else {
+                startButton.Enabled = true;
             }
         }
 

@@ -30,7 +30,8 @@
         {
             pictureBox1 = new PictureBox();
             cancelButton = new Button();
-            button1 = new Button();
+            saveButton = new Button();
+            saveFileDialog1 = new SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -53,23 +54,25 @@
             cancelButton.TabIndex = 3;
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
+            cancelButton.Click += cancelButton_Click;
             // 
-            // button1
+            // saveButton
             // 
-            button1.ForeColor = SystemColors.ControlText;
-            button1.Location = new Point(457, 525);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 51);
-            button1.TabIndex = 4;
-            button1.Text = "Save";
-            button1.UseVisualStyleBackColor = true;
+            saveButton.ForeColor = SystemColors.ControlText;
+            saveButton.Location = new Point(457, 525);
+            saveButton.Name = "saveButton";
+            saveButton.Size = new Size(75, 51);
+            saveButton.TabIndex = 4;
+            saveButton.Text = "Save";
+            saveButton.UseVisualStyleBackColor = true;
+            saveButton.Click += saveButton_Click;
             // 
             // ImageProcessor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(935, 593);
-            Controls.Add(button1);
+            Controls.Add(saveButton);
             Controls.Add(cancelButton);
             Controls.Add(pictureBox1);
             Name = "ImageProcessor";
@@ -82,6 +85,7 @@
 
         private PictureBox pictureBox1;
         private Button cancelButton;
-        private Button button1;
+        private Button saveButton;
+        private SaveFileDialog saveFileDialog1;
     }
 }
