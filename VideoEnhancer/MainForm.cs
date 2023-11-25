@@ -46,6 +46,7 @@ namespace VideoEnhancer
             gaussSigmaTextBox.Text = _gaussSigmaY.ToString();
             ToggleGaussBlurContent(false);
             ToggleSignalLabels(true);
+            exportButton.Enabled = false;
         }
 
         /// <summary>
@@ -182,7 +183,8 @@ namespace VideoEnhancer
                 ToggleGaussBlurContent(true);
                 ToggleSignalLabels(false);
             }
-            else {
+            else
+            {
                 startButton.Enabled = true;
             }
         }
@@ -436,6 +438,11 @@ namespace VideoEnhancer
             ImageProcessor imageProcessor = new ImageProcessor();
             imageProcessor.Show();
             imageProcessor.CacheFrame(pictureBox2.Image);
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            // TODO: Implement something here.
         }
     }
 }

@@ -34,6 +34,7 @@
             startButton = new Button();
             uiTimer = new System.Windows.Forms.Timer(components);
             groupBox1 = new GroupBox();
+            screenshotOutputButton = new Button();
             screenshotInputButton = new Button();
             splitButton = new Button();
             channelOneButton = new Button();
@@ -60,7 +61,7 @@
             darkModeCheckBox = new CheckBox();
             noSignalLeftLabel = new Label();
             noSignalRightLabel = new Label();
-            screenshotOutputButton = new Button();
+            exportButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -109,6 +110,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(exportButton);
             groupBox1.Controls.Add(screenshotOutputButton);
             groupBox1.Controls.Add(screenshotInputButton);
             groupBox1.Controls.Add(splitButton);
@@ -120,6 +122,17 @@
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Operations";
+            // 
+            // screenshotOutputButton
+            // 
+            screenshotOutputButton.ForeColor = SystemColors.ControlText;
+            screenshotOutputButton.Location = new Point(87, 79);
+            screenshotOutputButton.Name = "screenshotOutputButton";
+            screenshotOutputButton.Size = new Size(75, 51);
+            screenshotOutputButton.TabIndex = 7;
+            screenshotOutputButton.Text = "Screenshot Output";
+            screenshotOutputButton.UseVisualStyleBackColor = true;
+            screenshotOutputButton.Click += screenshotOutputButton_Click;
             // 
             // screenshotInputButton
             // 
@@ -403,16 +416,16 @@
             noSignalRightLabel.TabIndex = 13;
             noSignalRightLabel.Text = "No Signal...";
             // 
-            // screenshotOutputButton
+            // exportButton
             // 
-            screenshotOutputButton.ForeColor = SystemColors.ControlText;
-            screenshotOutputButton.Location = new Point(87, 79);
-            screenshotOutputButton.Name = "screenshotOutputButton";
-            screenshotOutputButton.Size = new Size(75, 51);
-            screenshotOutputButton.TabIndex = 7;
-            screenshotOutputButton.Text = "Screenshot Output";
-            screenshotOutputButton.UseVisualStyleBackColor = true;
-            screenshotOutputButton.Click += screenshotOutputButton_Click;
+            exportButton.ForeColor = SystemColors.ControlText;
+            exportButton.Location = new Point(168, 22);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new Size(75, 51);
+            exportButton.TabIndex = 8;
+            exportButton.Text = "Export";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += exportButton_Click;
             // 
             // MainForm
             // 
@@ -482,5 +495,6 @@
         private ComboBox inputResComboBox;
         private Label label5;
         private Button screenshotOutputButton;
+        private Button exportButton;
     }
 }
