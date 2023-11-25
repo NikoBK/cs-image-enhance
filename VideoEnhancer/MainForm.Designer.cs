@@ -45,7 +45,8 @@
             channelsCancelButton = new Button();
             groupBox2 = new GroupBox();
             tabControl1 = new TabControl();
-            sharpnessTab = new TabPage();
+            contrastTab = new TabPage();
+            claheResetButton = new Button();
             tileGridSizeTextBox = new TextBox();
             label11 = new Label();
             clipLimitUpdateButton = new Button();
@@ -80,19 +81,20 @@
             tabControl2 = new TabControl();
             gaussTabPage = new TabPage();
             medianTabPage = new TabPage();
-            claheResetButton = new Button();
+            label12 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
-            sharpnessTab.SuspendLayout();
+            contrastTab.SuspendLayout();
             colorCorrectionTab.SuspendLayout();
             resolutionsTab.SuspendLayout();
             miscTab.SuspendLayout();
             groupBox3.SuspendLayout();
             tabControl2.SuspendLayout();
             gaussTabPage.SuspendLayout();
+            medianTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
@@ -256,7 +258,7 @@
             // 
             // tabControl1
             // 
-            tabControl1.Controls.Add(sharpnessTab);
+            tabControl1.Controls.Add(contrastTab);
             tabControl1.Controls.Add(colorCorrectionTab);
             tabControl1.Controls.Add(resolutionsTab);
             tabControl1.Controls.Add(miscTab);
@@ -266,22 +268,32 @@
             tabControl1.Size = new Size(369, 145);
             tabControl1.TabIndex = 12;
             // 
-            // sharpnessTab
+            // contrastTab
             // 
-            sharpnessTab.BackColor = SystemColors.Control;
-            sharpnessTab.Controls.Add(claheResetButton);
-            sharpnessTab.Controls.Add(tileGridSizeTextBox);
-            sharpnessTab.Controls.Add(label11);
-            sharpnessTab.Controls.Add(clipLimitUpdateButton);
-            sharpnessTab.Controls.Add(claheClipLimitTextBox);
-            sharpnessTab.Controls.Add(label10);
-            sharpnessTab.Controls.Add(label8);
-            sharpnessTab.Controls.Add(claheCheckBox);
-            sharpnessTab.Location = new Point(4, 24);
-            sharpnessTab.Name = "sharpnessTab";
-            sharpnessTab.Size = new Size(361, 117);
-            sharpnessTab.TabIndex = 3;
-            sharpnessTab.Text = "Sharpness";
+            contrastTab.BackColor = SystemColors.Control;
+            contrastTab.Controls.Add(claheResetButton);
+            contrastTab.Controls.Add(tileGridSizeTextBox);
+            contrastTab.Controls.Add(label11);
+            contrastTab.Controls.Add(clipLimitUpdateButton);
+            contrastTab.Controls.Add(claheClipLimitTextBox);
+            contrastTab.Controls.Add(label10);
+            contrastTab.Controls.Add(label8);
+            contrastTab.Controls.Add(claheCheckBox);
+            contrastTab.Location = new Point(4, 24);
+            contrastTab.Name = "contrastTab";
+            contrastTab.Size = new Size(361, 117);
+            contrastTab.TabIndex = 3;
+            contrastTab.Text = "Contrast";
+            // 
+            // claheResetButton
+            // 
+            claheResetButton.Location = new Point(283, 62);
+            claheResetButton.Name = "claheResetButton";
+            claheResetButton.Size = new Size(75, 23);
+            claheResetButton.TabIndex = 7;
+            claheResetButton.Text = "Reset";
+            claheResetButton.UseVisualStyleBackColor = true;
+            claheResetButton.Click += claheResetButton_Click;
             // 
             // tileGridSizeTextBox
             // 
@@ -361,7 +373,7 @@
             colorCorrectionTab.Name = "colorCorrectionTab";
             colorCorrectionTab.Size = new Size(361, 117);
             colorCorrectionTab.TabIndex = 4;
-            colorCorrectionTab.Text = "Color Correction";
+            colorCorrectionTab.Text = "Colors";
             // 
             // brightnessMultTextBox
             // 
@@ -630,6 +642,7 @@
             // medianTabPage
             // 
             medianTabPage.BackColor = SystemColors.Control;
+            medianTabPage.Controls.Add(label12);
             medianTabPage.Location = new Point(4, 24);
             medianTabPage.Name = "medianTabPage";
             medianTabPage.Padding = new Padding(3);
@@ -637,15 +650,16 @@
             medianTabPage.TabIndex = 1;
             medianTabPage.Text = "Median Filter";
             // 
-            // claheResetButton
+            // label12
             // 
-            claheResetButton.Location = new Point(283, 62);
-            claheResetButton.Name = "claheResetButton";
-            claheResetButton.Size = new Size(75, 23);
-            claheResetButton.TabIndex = 7;
-            claheResetButton.Text = "Reset";
-            claheResetButton.UseVisualStyleBackColor = true;
-            claheResetButton.Click += claheResetButton_Click;
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point);
+            label12.ForeColor = Color.FromArgb(192, 0, 0);
+            label12.Location = new Point(123, 58);
+            label12.Name = "label12";
+            label12.Size = new Size(103, 15);
+            label12.TabIndex = 6;
+            label12.Text = "Work in progress...";
             // 
             // MainForm
             // 
@@ -672,8 +686,8 @@
             groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
-            sharpnessTab.ResumeLayout(false);
-            sharpnessTab.PerformLayout();
+            contrastTab.ResumeLayout(false);
+            contrastTab.PerformLayout();
             colorCorrectionTab.ResumeLayout(false);
             colorCorrectionTab.PerformLayout();
             resolutionsTab.ResumeLayout(false);
@@ -684,6 +698,8 @@
             tabControl2.ResumeLayout(false);
             gaussTabPage.ResumeLayout(false);
             gaussTabPage.PerformLayout();
+            medianTabPage.ResumeLayout(false);
+            medianTabPage.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -722,7 +738,7 @@
         private Label label5;
         private Button screenshotOutputButton;
         private Button exportButton;
-        private TabPage sharpnessTab;
+        private TabPage contrastTab;
         private TabPage colorCorrectionTab;
         private CheckBox claheCheckBox;
         private CheckBox colorCompCheckBox;
@@ -742,5 +758,6 @@
         private TextBox tileGridSizeTextBox;
         private Label label11;
         private Button claheResetButton;
+        private Label label12;
     }
 }

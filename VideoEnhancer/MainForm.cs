@@ -22,9 +22,6 @@ namespace VideoEnhancer
 
     public partial class MainForm : Form
     {
-        // General Stuff
-        private bool _initialized = false;
-
         // Video Processing
         public ConcurrentQueue<(Bitmap input, Bitmap output)> ProcessQueue { get; private set; }
         private VideoCapture? _capture;
@@ -86,13 +83,12 @@ namespace VideoEnhancer
             colorCompCheckBox.Enabled = active;
             brightnessMultTextBox.Enabled = active;
             colorCorrectionComboBox.Enabled = active;
+            claheClipLimitTextBox.Enabled = active;
+            tileGridSizeTextBox.Enabled = active;
+            claheResetButton.Enabled = active;
+            clipLimitUpdateButton.Enabled = active;
             ToggleGaussBlurContent(active);
             ToggleSignalLabels(!active);
-
-            if (!_initialized)
-            {
-                _initialized = true;
-            }
         }
 
         /// <summary>
