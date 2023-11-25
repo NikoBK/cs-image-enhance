@@ -10,6 +10,12 @@ using Emgu.CV.CvEnum;
 
 namespace VideoEnhancer
 {
+    public enum ColorCorrectionType
+    {
+        None = 0,
+        ColorCompensation
+    }
+
     public partial class MainForm : Form
     {
         // General Stuff
@@ -35,7 +41,10 @@ namespace VideoEnhancer
         private bool _useCLAHE = false;
 
         // White Balancing & Color Correction
+        private bool _useWhiteBalance = false;
+        private bool _useColorCorrection = false;
         private float _brightnessMultiplier = 1.2f;
+        private ColorCorrectionType _colorCorrection = ColorCorrectionType.None;
 
         public MainForm()
         {
@@ -57,6 +66,7 @@ namespace VideoEnhancer
             {
                 HideChannelButtons();
                 exportButton.Enabled = false;
+                colorCorrectionComboBox.Text = _colorCorrection.ToString();
             }
             inputResComboBox.Enabled = active;
             outputResComboBox.Enabled = active;

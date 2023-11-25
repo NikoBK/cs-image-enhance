@@ -338,10 +338,12 @@
             // colorCorrectionComboBox
             // 
             colorCorrectionComboBox.FormattingEnabled = true;
+            colorCorrectionComboBox.Items.AddRange(new object[] { "None", "ColorCompensation" });
             colorCorrectionComboBox.Location = new Point(185, 62);
             colorCorrectionComboBox.Name = "colorCorrectionComboBox";
             colorCorrectionComboBox.Size = new Size(135, 23);
             colorCorrectionComboBox.TabIndex = 2;
+            colorCorrectionComboBox.Text = "None";
             // 
             // label7
             // 
