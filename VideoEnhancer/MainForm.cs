@@ -542,13 +542,30 @@ namespace VideoEnhancer
 
         private void clipLimitUpdateButton_Click(object sender, EventArgs e)
         {
-            float clipLimit;
-            string boxValue = claheClipLimitTextBox.Text.Replace('.', ',');
+            string clipLimitValue = claheClipLimitTextBox.Text.Replace('.', ',');
+            string tileGridSizeValue = tileGridSizeTextBox.Text.Replace('.', ',');
 
-            if (float.TryParse(boxValue, out clipLimit)) {
+            float clipLimit;
+            if (float.TryParse(clipLimitValue, out clipLimit))
+            {
                 _clipLimit = clipLimit;
                 claheClipLimitTextBox.Text = _clipLimit.ToString();
             }
+
+            int tileGridSize;
+            if (int.TryParse(tileGridSizeValue, out tileGridSize))
+            {
+                _tileGridSize = new Size(tileGridSize, tileGridSize);
+                tileGridSizeTextBox.Text = _tileGridSize.Width.ToString();
+            }
+        }
+
+        private void claheResetButton_Click(object sender, EventArgs e)
+        {
+            _clipLimit = 2.0f;
+            _tileGridSize = new Size(8, 8);
+            claheClipLimitTextBox.Text = _clipLimit.ToString();
+            tileGridSizeTextBox.Text = _tileGridSize.Width.ToString();
         }
     }
 }

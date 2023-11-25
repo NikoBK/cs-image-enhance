@@ -46,6 +46,9 @@
             groupBox2 = new GroupBox();
             tabControl1 = new TabControl();
             sharpnessTab = new TabPage();
+            tileGridSizeTextBox = new TextBox();
+            label11 = new Label();
+            clipLimitUpdateButton = new Button();
             claheClipLimitTextBox = new TextBox();
             label10 = new Label();
             label8 = new Label();
@@ -77,7 +80,7 @@
             tabControl2 = new TabControl();
             gaussTabPage = new TabPage();
             medianTabPage = new TabPage();
-            clipLimitUpdateButton = new Button();
+            claheResetButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -266,6 +269,9 @@
             // sharpnessTab
             // 
             sharpnessTab.BackColor = SystemColors.Control;
+            sharpnessTab.Controls.Add(claheResetButton);
+            sharpnessTab.Controls.Add(tileGridSizeTextBox);
+            sharpnessTab.Controls.Add(label11);
             sharpnessTab.Controls.Add(clipLimitUpdateButton);
             sharpnessTab.Controls.Add(claheClipLimitTextBox);
             sharpnessTab.Controls.Add(label10);
@@ -276,6 +282,33 @@
             sharpnessTab.Size = new Size(361, 117);
             sharpnessTab.TabIndex = 3;
             sharpnessTab.Text = "Sharpness";
+            // 
+            // tileGridSizeTextBox
+            // 
+            tileGridSizeTextBox.Location = new Point(123, 76);
+            tileGridSizeTextBox.Name = "tileGridSizeTextBox";
+            tileGridSizeTextBox.Size = new Size(100, 23);
+            tileGridSizeTextBox.TabIndex = 6;
+            tileGridSizeTextBox.Text = "8";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(123, 58);
+            label11.Name = "label11";
+            label11.Size = new Size(73, 15);
+            label11.TabIndex = 5;
+            label11.Text = "Tile Grid Size";
+            // 
+            // clipLimitUpdateButton
+            // 
+            clipLimitUpdateButton.Location = new Point(283, 91);
+            clipLimitUpdateButton.Name = "clipLimitUpdateButton";
+            clipLimitUpdateButton.Size = new Size(75, 23);
+            clipLimitUpdateButton.TabIndex = 4;
+            clipLimitUpdateButton.Text = "Update";
+            clipLimitUpdateButton.UseVisualStyleBackColor = true;
+            clipLimitUpdateButton.Click += clipLimitUpdateButton_Click;
             // 
             // claheClipLimitTextBox
             // 
@@ -604,15 +637,15 @@
             medianTabPage.TabIndex = 1;
             medianTabPage.Text = "Median Filter";
             // 
-            // clipLimitUpdateButton
+            // claheResetButton
             // 
-            clipLimitUpdateButton.Location = new Point(112, 76);
-            clipLimitUpdateButton.Name = "clipLimitUpdateButton";
-            clipLimitUpdateButton.Size = new Size(75, 23);
-            clipLimitUpdateButton.TabIndex = 4;
-            clipLimitUpdateButton.Text = "Update";
-            clipLimitUpdateButton.UseVisualStyleBackColor = true;
-            clipLimitUpdateButton.Click += clipLimitUpdateButton_Click;
+            claheResetButton.Location = new Point(283, 62);
+            claheResetButton.Name = "claheResetButton";
+            claheResetButton.Size = new Size(75, 23);
+            claheResetButton.TabIndex = 7;
+            claheResetButton.Text = "Reset";
+            claheResetButton.UseVisualStyleBackColor = true;
+            claheResetButton.Click += claheResetButton_Click;
             // 
             // MainForm
             // 
@@ -706,5 +739,8 @@
         private TextBox claheClipLimitTextBox;
         private Label label10;
         private Button clipLimitUpdateButton;
+        private TextBox tileGridSizeTextBox;
+        private Label label11;
+        private Button claheResetButton;
     }
 }
