@@ -46,6 +46,8 @@
             groupBox2 = new GroupBox();
             tabControl1 = new TabControl();
             sharpnessTab = new TabPage();
+            claheClipLimitTextBox = new TextBox();
+            label10 = new Label();
             label8 = new Label();
             claheCheckBox = new CheckBox();
             colorCorrectionTab = new TabPage();
@@ -75,6 +77,7 @@
             tabControl2 = new TabControl();
             gaussTabPage = new TabPage();
             medianTabPage = new TabPage();
+            clipLimitUpdateButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -263,6 +266,9 @@
             // sharpnessTab
             // 
             sharpnessTab.BackColor = SystemColors.Control;
+            sharpnessTab.Controls.Add(clipLimitUpdateButton);
+            sharpnessTab.Controls.Add(claheClipLimitTextBox);
+            sharpnessTab.Controls.Add(label10);
             sharpnessTab.Controls.Add(label8);
             sharpnessTab.Controls.Add(claheCheckBox);
             sharpnessTab.Location = new Point(4, 24);
@@ -270,6 +276,23 @@
             sharpnessTab.Size = new Size(361, 117);
             sharpnessTab.TabIndex = 3;
             sharpnessTab.Text = "Sharpness";
+            // 
+            // claheClipLimitTextBox
+            // 
+            claheClipLimitTextBox.Location = new Point(6, 76);
+            claheClipLimitTextBox.Name = "claheClipLimitTextBox";
+            claheClipLimitTextBox.Size = new Size(100, 23);
+            claheClipLimitTextBox.TabIndex = 3;
+            claheClipLimitTextBox.Text = "2.0";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(6, 58);
+            label10.Name = "label10";
+            label10.Size = new Size(58, 15);
+            label10.TabIndex = 2;
+            label10.Text = "Clip Limit";
             // 
             // label8
             // 
@@ -581,6 +604,16 @@
             medianTabPage.TabIndex = 1;
             medianTabPage.Text = "Median Filter";
             // 
+            // clipLimitUpdateButton
+            // 
+            clipLimitUpdateButton.Location = new Point(112, 76);
+            clipLimitUpdateButton.Name = "clipLimitUpdateButton";
+            clipLimitUpdateButton.Size = new Size(75, 23);
+            clipLimitUpdateButton.TabIndex = 4;
+            clipLimitUpdateButton.Text = "Update";
+            clipLimitUpdateButton.UseVisualStyleBackColor = true;
+            clipLimitUpdateButton.Click += clipLimitUpdateButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -670,5 +703,8 @@
         private TabPage medianTabPage;
         private Label label9;
         private TextBox brightnessMultTextBox;
+        private TextBox claheClipLimitTextBox;
+        private Label label10;
+        private Button clipLimitUpdateButton;
     }
 }

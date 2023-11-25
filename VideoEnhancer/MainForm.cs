@@ -43,6 +43,8 @@ namespace VideoEnhancer
 
         // Image Enhancement
         private bool _useCLAHE = false;
+        private float _clipLimit = 2.0f;
+        private Size _tileGridSize = new Size(8, 8);
 
         // White Balancing & Color Correction
         private bool _useWhiteBalance = false;
@@ -184,7 +186,7 @@ namespace VideoEnhancer
                         CvInvoke.ExtractChannel(processedFrame, lChannel, 0);
 
                         // Apply CLAHE to the L channel
-                        CvInvoke.CLAHE(lChannel, 2.0, new Size(8, 8), lChannel);
+                        CvInvoke.CLAHE(lChannel, _clipLimit, _tileGridSize, lChannel);
 
                         // Merge the updated L channel back into the LAB image
                         CvInvoke.InsertChannel(lChannel, processedFrame, 0);
@@ -193,7 +195,7 @@ namespace VideoEnhancer
                         CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Lab2Bgr);
                     }
 
-                    if (_useWhiteBalance) 
+                    if (_useWhiteBalance)
                     {
                         // Convert BGR image to LAB color space
                         CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Bgr2Lab);
@@ -536,6 +538,17 @@ namespace VideoEnhancer
         private void colorCompCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             _useColorCorrection = colorCompCheckBox.Checked;
+        }
+
+        private void clipLimitUpdateButton_Click(object sender, EventArgs e)
+        {
+            float clipLimit;
+            string boxValue = claheClipLimitTextBox.Text.Replace('.', ',');
+
+            if (float.TryParse(boxValue, out clipLimit)) {
+                _clipLimit = clipLimit;
+                claheClipLimitTextBox.Text = _clipLimit.ToString();
+            }
         }
     }
 }
