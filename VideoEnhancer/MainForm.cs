@@ -1,5 +1,5 @@
 ﻿/*
-    file: Test.cs
+    file: MainForm.cs
     author: NikoBK
     created on: nov 22 2023
 */
@@ -7,6 +7,10 @@ using Emgu.CV;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using Emgu.CV.CvEnum;
+using Emgu.CV.XPhoto;
+using Emgu.Util;
+using Emgu.CV.Structure;
+using Emgu.CV.Util;
 
 namespace VideoEnhancer
 {
@@ -50,7 +54,7 @@ namespace VideoEnhancer
         {
             InitializeComponent();
 
-            // Initialize variables
+            // Initialize stuff
             uiTimer.Interval = Constants.UITimerInterval;
             ProcessQueue = new ConcurrentQueue<(Bitmap, Bitmap)>();
 
@@ -170,20 +174,51 @@ namespace VideoEnhancer
                 }
                 else
                 {
+                    if (_useCLAHE)
+                    {
+                        // Convert to LAB color space
+                        CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Bgr2Lab);
+
+                        // Get the L channel
+                        Mat lChannel = new Mat();
+                        CvInvoke.ExtractChannel(processedFrame, lChannel, 0);
+
+                        // Apply CLAHE to the L channel
+                        CvInvoke.CLAHE(lChannel, 2.0, new Size(8, 8), lChannel);
+
+                        // Merge the updated L channel back into the LAB image
+                        CvInvoke.InsertChannel(lChannel, processedFrame, 0);
+
+                        // Convert the LAB image back into BGR
+                        CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Lab2Bgr);
+                    }
+
+                    if (_useWhiteBalance) 
+                    {
+                        // Convert BGR image to LAB color space
+                        CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Bgr2Lab);
+
+                        // Splot LAB image into channels
+                        VectorOfMat labChannels = new VectorOfMat();
+                        CvInvoke.Split(processedFrame, labChannels);
+
+                        // Perform white balancing on the L channel
+                        // For simplicity, you can adjust the intensity of the L channel as needed
+                        CvInvoke.AddWeighted(labChannels[0], 1.0, new Mat(labChannels[0].Size, labChannels[0].Depth, labChannels[0].NumberOfChannels), 0.0, 50, labChannels[0]);
+
+                        // Merge LAB channels back into an image
+                        CvInvoke.Merge(labChannels, processedFrame);
+
+                        // Convert LAB image back to BGR
+                        CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Lab2Bgr);
+                    }
+
                     if (_gaussBlur)
                     {
                         CvInvoke.GaussianBlur(processedFrame, processedFrame, new Size(_gaussKernelSize, _gaussKernelSize), _gaussSigmaY);
                     }
 
-                    // Use the input frame if we're not doing any processing on the frame.
-                    if (processedFrame.IsEmpty)
-                    {
-                        ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: processedFrame.ToBitmap()));
-                    }
-                    else
-                    {
-                        ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: processedFrame.ToBitmap()));
-                    }
+                    ProcessQueue.Enqueue((input: inputFrame.ToBitmap(), output: processedFrame.ToBitmap()));
                 }
 
                 // Update the time when the frame should have been processed.
@@ -491,6 +526,16 @@ namespace VideoEnhancer
         private void ToggleBrightnessMultiplier(bool active)
         {
             // TODO: Implement something here.
+        }
+
+        private void whiteBalanceCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _useWhiteBalance = whiteBalanceCheckBox.Checked;
+        }
+
+        private void colorCompCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            _useColorCorrection = colorCompCheckBox.Checked;
         }
     }
 }

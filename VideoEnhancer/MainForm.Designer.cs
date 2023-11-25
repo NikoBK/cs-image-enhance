@@ -334,6 +334,7 @@
             colorCompCheckBox.TabIndex = 3;
             colorCompCheckBox.Text = "Use Color Compensation";
             colorCompCheckBox.UseVisualStyleBackColor = true;
+            colorCompCheckBox.CheckedChanged += colorCompCheckBox_CheckedChanged;
             // 
             // colorCorrectionComboBox
             // 
@@ -363,6 +364,7 @@
             whiteBalanceCheckBox.TabIndex = 0;
             whiteBalanceCheckBox.Text = "Apply White Balance";
             whiteBalanceCheckBox.UseVisualStyleBackColor = true;
+            whiteBalanceCheckBox.CheckedChanged += whiteBalanceCheckBox_CheckedChanged;
             // 
             // resolutionsTab
             // 
