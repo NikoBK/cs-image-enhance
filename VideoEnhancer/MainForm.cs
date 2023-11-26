@@ -623,10 +623,12 @@ namespace VideoEnhancer
         private void colorsUpdateButton_Click(object sender, EventArgs e)
         {
             int brightMult;
-            if (int.TryParse(brightnessMultTextBox.Text, out brightMult)) {
+            if (int.TryParse(brightnessMultTextBox.Text, out brightMult))
+            {
                 _brightnessMultiplier = brightMult;
             }
-            else {
+            else
+            {
                 ShowError("Input Error", "You entered an invalid Brightness Multiplier value, please try again.");
             }
 
@@ -635,12 +637,14 @@ namespace VideoEnhancer
             string ccBlueValue = ccBlueWeightTextBox.Text.Replace('.', ',');
 
             float redA, greenA, blueA;
-            if (float.TryParse(ccRedValue, out redA) &&  float.TryParse(ccGreenValue, out greenA) &&  float.TryParse(ccBlueValue, out blueA)) {
+            if (float.TryParse(ccRedValue, out redA) && float.TryParse(ccGreenValue, out greenA) && float.TryParse(ccBlueValue, out blueA))
+            {
                 _redAlpha = redA;
                 _greenAlpha = greenA;
                 _blueAlpha = blueA;
             }
-            else {
+            else
+            {
                 ShowError("Input Error", "One of the values given the RGB weight factors is invalid. Please try again");
             }
 

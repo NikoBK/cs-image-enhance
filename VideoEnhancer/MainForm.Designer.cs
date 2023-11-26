@@ -55,6 +55,13 @@
             label8 = new Label();
             claheCheckBox = new CheckBox();
             colorCorrectionTab = new TabPage();
+            ccGreenWightTextBox = new TextBox();
+            label15 = new Label();
+            ccBlueWeightTextBox = new TextBox();
+            label16 = new Label();
+            ccRedWightTextBox = new TextBox();
+            label14 = new Label();
+            label13 = new Label();
             colorsResetButton = new Button();
             colorsUpdateButton = new Button();
             brightnessMultTextBox = new TextBox();
@@ -84,13 +91,6 @@
             gaussTabPage = new TabPage();
             medianTabPage = new TabPage();
             label12 = new Label();
-            label13 = new Label();
-            label14 = new Label();
-            ccRedWightTextBox = new TextBox();
-            label15 = new Label();
-            ccGreenWightTextBox = new TextBox();
-            label16 = new Label();
-            ccBlueWeightTextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -296,7 +296,7 @@
             // 
             // claheResetButton
             // 
-            claheResetButton.Location = new Point(283, 62);
+            claheResetButton.Location = new Point(283, 96);
             claheResetButton.Name = "claheResetButton";
             claheResetButton.Size = new Size(75, 23);
             claheResetButton.TabIndex = 7;
@@ -323,7 +323,7 @@
             // 
             // clipLimitUpdateButton
             // 
-            clipLimitUpdateButton.Location = new Point(283, 91);
+            clipLimitUpdateButton.Location = new Point(283, 125);
             clipLimitUpdateButton.Name = "clipLimitUpdateButton";
             clipLimitUpdateButton.Size = new Size(75, 23);
             clipLimitUpdateButton.TabIndex = 4;
@@ -393,9 +393,72 @@
             colorCorrectionTab.TabIndex = 4;
             colorCorrectionTab.Text = "Colors";
             // 
+            // ccGreenWightTextBox
+            // 
+            ccGreenWightTextBox.Location = new Point(104, 104);
+            ccGreenWightTextBox.Name = "ccGreenWightTextBox";
+            ccGreenWightTextBox.Size = new Size(71, 23);
+            ccGreenWightTextBox.TabIndex = 11;
+            ccGreenWightTextBox.Text = "1.2";
+            ccGreenWightTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(123, 130);
+            label15.Name = "label15";
+            label15.Size = new Size(38, 15);
+            label15.TabIndex = 10;
+            label15.Text = "Green";
+            // 
+            // ccBlueWeightTextBox
+            // 
+            ccBlueWeightTextBox.Location = new Point(181, 104);
+            ccBlueWeightTextBox.Name = "ccBlueWeightTextBox";
+            ccBlueWeightTextBox.Size = new Size(71, 23);
+            ccBlueWeightTextBox.TabIndex = 11;
+            ccBlueWeightTextBox.Text = "1.0";
+            ccBlueWeightTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(203, 130);
+            label16.Name = "label16";
+            label16.Size = new Size(30, 15);
+            label16.TabIndex = 10;
+            label16.Text = "Blue";
+            // 
+            // ccRedWightTextBox
+            // 
+            ccRedWightTextBox.Location = new Point(27, 104);
+            ccRedWightTextBox.Name = "ccRedWightTextBox";
+            ccRedWightTextBox.Size = new Size(71, 23);
+            ccRedWightTextBox.TabIndex = 11;
+            ccRedWightTextBox.Text = "1.5";
+            ccRedWightTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(48, 130);
+            label14.Name = "label14";
+            label14.Size = new Size(27, 15);
+            label14.TabIndex = 10;
+            label14.Text = "Red";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(45, 86);
+            label13.Name = "label13";
+            label13.Size = new Size(188, 15);
+            label13.TabIndex = 9;
+            label13.Text = "Color Correction Channel Weights";
+            // 
             // colorsResetButton
             // 
-            colorsResetButton.Location = new Point(283, 62);
+            colorsResetButton.Location = new Point(283, 93);
             colorsResetButton.Name = "colorsResetButton";
             colorsResetButton.Size = new Size(75, 23);
             colorsResetButton.TabIndex = 8;
@@ -405,7 +468,7 @@
             // 
             // colorsUpdateButton
             // 
-            colorsUpdateButton.Location = new Point(283, 91);
+            colorsUpdateButton.Location = new Point(283, 122);
             colorsUpdateButton.Name = "colorsUpdateButton";
             colorsUpdateButton.Size = new Size(75, 23);
             colorsUpdateButton.TabIndex = 7;
@@ -533,7 +596,7 @@
             miscTab.Location = new Point(4, 24);
             miscTab.Name = "miscTab";
             miscTab.Padding = new Padding(3);
-            miscTab.Size = new Size(361, 117);
+            miscTab.Size = new Size(361, 151);
             miscTab.TabIndex = 1;
             miscTab.Text = "Misc";
             // 
@@ -684,7 +747,7 @@
             medianTabPage.Location = new Point(4, 24);
             medianTabPage.Name = "medianTabPage";
             medianTabPage.Padding = new Padding(3);
-            medianTabPage.Size = new Size(335, 117);
+            medianTabPage.Size = new Size(335, 151);
             medianTabPage.TabIndex = 1;
             medianTabPage.Text = "Median Filter";
             // 
@@ -698,69 +761,6 @@
             label12.Size = new Size(103, 15);
             label12.TabIndex = 6;
             label12.Text = "Work in progress...";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Location = new Point(45, 86);
-            label13.Name = "label13";
-            label13.Size = new Size(188, 15);
-            label13.TabIndex = 9;
-            label13.Text = "Color Correction Channel Weights";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Location = new Point(48, 130);
-            label14.Name = "label14";
-            label14.Size = new Size(27, 15);
-            label14.TabIndex = 10;
-            label14.Text = "Red";
-            // 
-            // ccRedWightTextBox
-            // 
-            ccRedWightTextBox.Location = new Point(27, 104);
-            ccRedWightTextBox.Name = "ccRedWightTextBox";
-            ccRedWightTextBox.Size = new Size(71, 23);
-            ccRedWightTextBox.TabIndex = 11;
-            ccRedWightTextBox.Text = "1.5";
-            ccRedWightTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Location = new Point(123, 130);
-            label15.Name = "label15";
-            label15.Size = new Size(38, 15);
-            label15.TabIndex = 10;
-            label15.Text = "Green";
-            // 
-            // ccGreenWightTextBox
-            // 
-            ccGreenWightTextBox.Location = new Point(104, 104);
-            ccGreenWightTextBox.Name = "ccGreenWightTextBox";
-            ccGreenWightTextBox.Size = new Size(71, 23);
-            ccGreenWightTextBox.TabIndex = 11;
-            ccGreenWightTextBox.Text = "1.2";
-            ccGreenWightTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Location = new Point(203, 130);
-            label16.Name = "label16";
-            label16.Size = new Size(30, 15);
-            label16.TabIndex = 10;
-            label16.Text = "Blue";
-            // 
-            // ccBlueWeightTextBox
-            // 
-            ccBlueWeightTextBox.Location = new Point(181, 104);
-            ccBlueWeightTextBox.Name = "ccBlueWeightTextBox";
-            ccBlueWeightTextBox.Size = new Size(71, 23);
-            ccBlueWeightTextBox.TabIndex = 11;
-            ccBlueWeightTextBox.Text = "1.0";
-            ccBlueWeightTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // MainForm
             // 
