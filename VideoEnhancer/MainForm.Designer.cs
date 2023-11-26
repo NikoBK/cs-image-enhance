@@ -55,6 +55,8 @@
             label8 = new Label();
             claheCheckBox = new CheckBox();
             colorCorrectionTab = new TabPage();
+            colorsResetButton = new Button();
+            colorsUpdateButton = new Button();
             brightnessMultTextBox = new TextBox();
             label9 = new Label();
             colorCompCheckBox = new CheckBox();
@@ -82,8 +84,13 @@
             gaussTabPage = new TabPage();
             medianTabPage = new TabPage();
             label12 = new Label();
-            colorsUpdateButton = new Button();
-            colorsResetButton = new Button();
+            label13 = new Label();
+            label14 = new Label();
+            ccRedWightTextBox = new TextBox();
+            label15 = new Label();
+            ccGreenWightTextBox = new TextBox();
+            label16 = new Label();
+            ccBlueWeightTextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -143,7 +150,7 @@
             groupBox1.Controls.Add(splitButton);
             groupBox1.Controls.Add(startButton);
             groupBox1.ForeColor = SystemColors.ControlText;
-            groupBox1.Location = new Point(12, 478);
+            groupBox1.Location = new Point(770, 478);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(268, 166);
             groupBox1.TabIndex = 5;
@@ -251,9 +258,9 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(tabControl1);
-            groupBox2.Location = new Point(295, 478);
+            groupBox2.Location = new Point(12, 444);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(381, 166);
+            groupBox2.Size = new Size(381, 200);
             groupBox2.TabIndex = 11;
             groupBox2.TabStop = false;
             groupBox2.Text = "Adjustments";
@@ -267,7 +274,7 @@
             tabControl1.Location = new Point(6, 15);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(369, 145);
+            tabControl1.Size = new Size(369, 179);
             tabControl1.TabIndex = 12;
             // 
             // contrastTab
@@ -283,7 +290,7 @@
             contrastTab.Controls.Add(claheCheckBox);
             contrastTab.Location = new Point(4, 24);
             contrastTab.Name = "contrastTab";
-            contrastTab.Size = new Size(361, 117);
+            contrastTab.Size = new Size(361, 151);
             contrastTab.TabIndex = 3;
             contrastTab.Text = "Contrast";
             // 
@@ -365,6 +372,13 @@
             // colorCorrectionTab
             // 
             colorCorrectionTab.BackColor = SystemColors.Control;
+            colorCorrectionTab.Controls.Add(ccGreenWightTextBox);
+            colorCorrectionTab.Controls.Add(label15);
+            colorCorrectionTab.Controls.Add(ccBlueWeightTextBox);
+            colorCorrectionTab.Controls.Add(label16);
+            colorCorrectionTab.Controls.Add(ccRedWightTextBox);
+            colorCorrectionTab.Controls.Add(label14);
+            colorCorrectionTab.Controls.Add(label13);
             colorCorrectionTab.Controls.Add(colorsResetButton);
             colorCorrectionTab.Controls.Add(colorsUpdateButton);
             colorCorrectionTab.Controls.Add(brightnessMultTextBox);
@@ -375,9 +389,29 @@
             colorCorrectionTab.Controls.Add(whiteBalanceCheckBox);
             colorCorrectionTab.Location = new Point(4, 24);
             colorCorrectionTab.Name = "colorCorrectionTab";
-            colorCorrectionTab.Size = new Size(361, 117);
+            colorCorrectionTab.Size = new Size(361, 151);
             colorCorrectionTab.TabIndex = 4;
             colorCorrectionTab.Text = "Colors";
+            // 
+            // colorsResetButton
+            // 
+            colorsResetButton.Location = new Point(283, 62);
+            colorsResetButton.Name = "colorsResetButton";
+            colorsResetButton.Size = new Size(75, 23);
+            colorsResetButton.TabIndex = 8;
+            colorsResetButton.Text = "Reset";
+            colorsResetButton.UseVisualStyleBackColor = true;
+            colorsResetButton.Click += colorsResetButton_Click;
+            // 
+            // colorsUpdateButton
+            // 
+            colorsUpdateButton.Location = new Point(283, 91);
+            colorsUpdateButton.Name = "colorsUpdateButton";
+            colorsUpdateButton.Size = new Size(75, 23);
+            colorsUpdateButton.TabIndex = 7;
+            colorsUpdateButton.Text = "Update";
+            colorsUpdateButton.UseVisualStyleBackColor = true;
+            colorsUpdateButton.Click += colorsUpdateButton_Click;
             // 
             // brightnessMultTextBox
             // 
@@ -411,7 +445,7 @@
             // colorCorrectionComboBox
             // 
             colorCorrectionComboBox.FormattingEnabled = true;
-            colorCorrectionComboBox.Items.AddRange(new object[] { "None", "ColorCompensation" });
+            colorCorrectionComboBox.Items.AddRange(new object[] { "None", "Test", "ColorCorrection" });
             colorCorrectionComboBox.Location = new Point(161, 46);
             colorCorrectionComboBox.Name = "colorCorrectionComboBox";
             colorCorrectionComboBox.Size = new Size(91, 23);
@@ -447,7 +481,7 @@
             resolutionsTab.Controls.Add(label5);
             resolutionsTab.Location = new Point(4, 24);
             resolutionsTab.Name = "resolutionsTab";
-            resolutionsTab.Size = new Size(361, 117);
+            resolutionsTab.Size = new Size(361, 151);
             resolutionsTab.TabIndex = 2;
             resolutionsTab.Text = "Resolution";
             // 
@@ -610,9 +644,9 @@
             // groupBox3
             // 
             groupBox3.Controls.Add(tabControl2);
-            groupBox3.Location = new Point(682, 478);
+            groupBox3.Location = new Point(401, 444);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(356, 166);
+            groupBox3.Size = new Size(356, 200);
             groupBox3.TabIndex = 14;
             groupBox3.TabStop = false;
             groupBox3.Text = "Filters";
@@ -624,7 +658,7 @@
             tabControl2.Location = new Point(6, 15);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(343, 145);
+            tabControl2.Size = new Size(343, 179);
             tabControl2.TabIndex = 0;
             // 
             // gaussTabPage
@@ -639,7 +673,7 @@
             gaussTabPage.Location = new Point(4, 24);
             gaussTabPage.Name = "gaussTabPage";
             gaussTabPage.Padding = new Padding(3);
-            gaussTabPage.Size = new Size(335, 117);
+            gaussTabPage.Size = new Size(335, 151);
             gaussTabPage.TabIndex = 0;
             gaussTabPage.Text = "Gaussian Blur";
             // 
@@ -665,25 +699,68 @@
             label12.TabIndex = 6;
             label12.Text = "Work in progress...";
             // 
-            // colorsUpdateButton
+            // label13
             // 
-            colorsUpdateButton.Location = new Point(283, 91);
-            colorsUpdateButton.Name = "colorsUpdateButton";
-            colorsUpdateButton.Size = new Size(75, 23);
-            colorsUpdateButton.TabIndex = 7;
-            colorsUpdateButton.Text = "Update";
-            colorsUpdateButton.UseVisualStyleBackColor = true;
-            colorsUpdateButton.Click += colorsUpdateButton_Click;
+            label13.AutoSize = true;
+            label13.Location = new Point(45, 86);
+            label13.Name = "label13";
+            label13.Size = new Size(188, 15);
+            label13.TabIndex = 9;
+            label13.Text = "Color Correction Channel Weights";
             // 
-            // colorsResetButton
+            // label14
             // 
-            colorsResetButton.Location = new Point(283, 62);
-            colorsResetButton.Name = "colorsResetButton";
-            colorsResetButton.Size = new Size(75, 23);
-            colorsResetButton.TabIndex = 8;
-            colorsResetButton.Text = "Reset";
-            colorsResetButton.UseVisualStyleBackColor = true;
-            colorsResetButton.Click += colorsResetButton_Click;
+            label14.AutoSize = true;
+            label14.Location = new Point(48, 130);
+            label14.Name = "label14";
+            label14.Size = new Size(27, 15);
+            label14.TabIndex = 10;
+            label14.Text = "Red";
+            // 
+            // ccRedWightTextBox
+            // 
+            ccRedWightTextBox.Location = new Point(27, 104);
+            ccRedWightTextBox.Name = "ccRedWightTextBox";
+            ccRedWightTextBox.Size = new Size(71, 23);
+            ccRedWightTextBox.TabIndex = 11;
+            ccRedWightTextBox.Text = "1.5";
+            ccRedWightTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(123, 130);
+            label15.Name = "label15";
+            label15.Size = new Size(38, 15);
+            label15.TabIndex = 10;
+            label15.Text = "Green";
+            // 
+            // ccGreenWightTextBox
+            // 
+            ccGreenWightTextBox.Location = new Point(104, 104);
+            ccGreenWightTextBox.Name = "ccGreenWightTextBox";
+            ccGreenWightTextBox.Size = new Size(71, 23);
+            ccGreenWightTextBox.TabIndex = 11;
+            ccGreenWightTextBox.Text = "1.2";
+            ccGreenWightTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(203, 130);
+            label16.Name = "label16";
+            label16.Size = new Size(30, 15);
+            label16.TabIndex = 10;
+            label16.Text = "Blue";
+            // 
+            // ccBlueWeightTextBox
+            // 
+            ccBlueWeightTextBox.Location = new Point(181, 104);
+            ccBlueWeightTextBox.Name = "ccBlueWeightTextBox";
+            ccBlueWeightTextBox.Size = new Size(71, 23);
+            ccBlueWeightTextBox.TabIndex = 11;
+            ccBlueWeightTextBox.Text = "1.0";
+            ccBlueWeightTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // MainForm
             // 
@@ -785,5 +862,12 @@
         private Label label12;
         private Button colorsResetButton;
         private Button colorsUpdateButton;
+        private TextBox ccRedWightTextBox;
+        private Label label14;
+        private Label label13;
+        private TextBox ccGreenWightTextBox;
+        private Label label15;
+        private TextBox ccBlueWeightTextBox;
+        private Label label16;
     }
 }

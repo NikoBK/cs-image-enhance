@@ -17,6 +17,7 @@ namespace VideoEnhancer
     public enum ColorCorrectionType
     {
         None = 0,
+        Test,
         ColorCompensation
     }
 
@@ -48,6 +49,9 @@ namespace VideoEnhancer
         private bool _useColorCorrection = false;
         private int _brightnessMultiplier = 25;
         private ColorCorrectionType _colorCorrection = ColorCorrectionType.None;
+        private float _redAlpha = 1.5f;
+        private float _greenAlpha = 1.2f;
+        private float _blueAlpha = 1.0f;
 
         public MainForm()
         {
@@ -89,6 +93,9 @@ namespace VideoEnhancer
             clipLimitUpdateButton.Enabled = active;
             colorsResetButton.Enabled = active;
             colorsUpdateButton.Enabled = active;
+            ccRedWightTextBox.Enabled = false;
+            ccGreenWightTextBox.Enabled = false;
+            ccBlueWeightTextBox.Enabled = false;
             ToggleGaussBlurContent(active);
             ToggleSignalLabels(!active);
         }
@@ -191,6 +198,41 @@ namespace VideoEnhancer
 
                         // Convert the LAB image back into BGR
                         CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Lab2Bgr);
+                    }
+
+                    if (_useColorCorrection && _colorCorrection != ColorCorrectionType.None)
+                    {
+                        VectorOfMat channels;
+                        switch (_colorCorrection)
+                        {
+                            case ColorCorrectionType.Test:
+                                // Split the image into 3 channels
+                                channels = new VectorOfMat();
+                                CvInvoke.Split(processedFrame, channels);
+
+                                // Apply contrast enhancement to each color channel
+                                for (int i = 0; i < channels.Size; i++)
+                                {
+                                    CvInvoke.EqualizeHist(channels[i], channels[i]);
+                                }
+
+                                // Merge the channels back into the image
+                                CvInvoke.Merge(channels, processedFrame);
+                                break;
+                            case ColorCorrectionType.ColorCompensation:
+                                // Split the image into 3 channels
+                                channels = new VectorOfMat();
+                                CvInvoke.Split(processedFrame, channels);
+
+                                // Perform color correction on each channel
+                                CvInvoke.AddWeighted(channels[0], _redAlpha, new Mat(channels[0].Size, channels[0].Depth, channels[0].NumberOfChannels), 0.0, 0.0, channels[0]); // Blue channel
+                                CvInvoke.AddWeighted(channels[1], _greenAlpha, new Mat(channels[1].Size, channels[1].Depth, channels[1].NumberOfChannels), 0.0, 0.0, channels[1]); // Green channel
+                                CvInvoke.AddWeighted(channels[2], _blueAlpha, new Mat(channels[2].Size, channels[2].Depth, channels[2].NumberOfChannels), 0.0, 0.0, channels[2]); // Red channel
+
+                                // Merge the color channels back into an image
+                                CvInvoke.Merge(channels, processedFrame);
+                                break;
+                        }
                     }
 
                     if (_useWhiteBalance)
@@ -531,6 +573,9 @@ namespace VideoEnhancer
         private void colorCompCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             _useColorCorrection = colorCompCheckBox.Checked;
+            ccRedWightTextBox.Enabled = colorCompCheckBox.Checked;
+            ccGreenWightTextBox.Enabled = colorCompCheckBox.Checked;
+            ccBlueWeightTextBox.Enabled = colorCompCheckBox.Checked;
         }
 
         private void clipLimitUpdateButton_Click(object sender, EventArgs e)
@@ -575,7 +620,49 @@ namespace VideoEnhancer
             if (int.TryParse(brightnessMultTextBox.Text, out brightMult)) {
                 _brightnessMultiplier = brightMult;
             }
+            else {
+                ShowError("Input Error", "You entered an invalid Brightness Multiplier value, please try again.");
+            }
+
+            string ccRedValue = ccRedWightTextBox.Text.Replace('.', ',');
+            string ccGreenValue = ccGreenWightTextBox.Text.Replace('.', ',');
+            string ccBlueValue = ccBlueWeightTextBox.Text.Replace('.', ',');
+
+            float redA, greenA, blueA;
+            if (float.TryParse(ccRedValue, out redA) &&  float.TryParse(ccGreenValue, out greenA) &&  float.TryParse(ccBlueValue, out blueA)) {
+                _redAlpha = redA;
+                _greenAlpha = greenA;
+                _blueAlpha = blueA;
+            }
+            else {
+                ShowError("Input Error", "One of the values given the RGB weight factors is invalid. Please try again");
+            }
+
             brightnessMultTextBox.Text = _brightnessMultiplier.ToString();
+            ccRedWightTextBox.Text = _redAlpha.ToString();
+            ccGreenWightTextBox.Text = _greenAlpha.ToString();
+            ccBlueWeightTextBox.Text = _blueAlpha.ToString();
+
+            switch (colorCorrectionComboBox.Text)
+            {
+                case "Test":
+                    _colorCorrection = ColorCorrectionType.Test;
+                    break;
+
+                case "ColorCorrection":
+                    _colorCorrection = ColorCorrectionType.ColorCompensation;
+                    break;
+
+                case "None":
+                default:
+                    _colorCorrection = ColorCorrectionType.None;
+                    break;
+            }
+        }
+
+        private void ShowError(string title, string message)
+        {
+            MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
