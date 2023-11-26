@@ -674,5 +674,11 @@ namespace VideoEnhancer
         {
             MessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void imageProcessorButton_Click(object sender, EventArgs e)
+        {
+            ImageProcessor imgProcessor = new ImageProcessor();
+            imgProcessor.Show();
+        }
     }
 }

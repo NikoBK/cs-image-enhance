@@ -32,7 +32,16 @@
             cancelButton = new Button();
             saveButton = new Button();
             saveFileDialog1 = new SaveFileDialog();
+            liquidRescaleButton = new Button();
+            trackBar1 = new TrackBar();
+            label1 = new Label();
+            trackBar2 = new TrackBar();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
@@ -67,18 +76,88 @@
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += saveButton_Click;
             // 
+            // liquidRescaleButton
+            // 
+            liquidRescaleButton.Location = new Point(12, 525);
+            liquidRescaleButton.Name = "liquidRescaleButton";
+            liquidRescaleButton.Size = new Size(75, 51);
+            liquidRescaleButton.TabIndex = 5;
+            liquidRescaleButton.Text = "Liquid Rescale";
+            liquidRescaleButton.UseVisualStyleBackColor = true;
+            liquidRescaleButton.Click += liquidRescaleButton_Click;
+            // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(12, 614);
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(150, 45);
+            trackBar1.TabIndex = 6;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(62, 596);
+            label1.Name = "label1";
+            label1.Size = new Size(52, 15);
+            label1.TabIndex = 7;
+            label1.Text = "Width %";
+            // 
+            // trackBar2
+            // 
+            trackBar2.Location = new Point(190, 614);
+            trackBar2.Name = "trackBar2";
+            trackBar2.Size = new Size(150, 45);
+            trackBar2.TabIndex = 8;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(232, 596);
+            label2.Name = "label2";
+            label2.Size = new Size(56, 15);
+            label2.TabIndex = 9;
+            label2.Text = "Height %";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(93, 546);
+            label3.Name = "label3";
+            label3.Size = new Size(53, 15);
+            label3.TabIndex = 10;
+            label3.Text = "DeltaX: 1";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(93, 561);
+            label4.Name = "label4";
+            label4.Size = new Size(59, 15);
+            label4.TabIndex = 11;
+            label4.Text = "Rigidity: 0";
+            // 
             // ImageProcessor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(935, 593);
+            ClientSize = new Size(935, 671);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(trackBar2);
+            Controls.Add(label1);
+            Controls.Add(trackBar1);
+            Controls.Add(liquidRescaleButton);
             Controls.Add(saveButton);
             Controls.Add(cancelButton);
             Controls.Add(pictureBox1);
             Name = "ImageProcessor";
             Text = "ImageProcessor";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -87,5 +166,12 @@
         private Button cancelButton;
         private Button saveButton;
         private SaveFileDialog saveFileDialog1;
+        private Button liquidRescaleButton;
+        private TrackBar trackBar1;
+        private Label label1;
+        private TrackBar trackBar2;
+        private Label label2;
+        private Label label3;
+        private Label label4;
     }
 }

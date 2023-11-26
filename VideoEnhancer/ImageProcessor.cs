@@ -7,6 +7,8 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using System.Drawing.Imaging;
 using System.Security.Cryptography;
+using ImageMagick;
+using System.Text.RegularExpressions;
 
 namespace VideoEnhancer
 {
@@ -39,10 +41,29 @@ namespace VideoEnhancer
         {
             this.saveFileDialog1.FileName = "Screenshot";
             this.saveFileDialog1.Filter = "Image Files (*.png, *.jpg, *.jpeg)| *.png;*.jpg*.jpeg";
-            if (this.saveFileDialog1.ShowDialog() == DialogResult.OK) {
+            if (this.saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
                 pictureBox1.Image.Save(this.saveFileDialog1.FileName, ImageFormat.Jpeg);
                 Close();
             }
+        }
+
+        private void liquidRescaleButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Video Files (*.png, *.jpg,  *.jpeg)| *.png;*.jpg*.jpeg";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                using var img = new MagickImage(ofd.FileName);
+                img.LiquidRescale(new Percentage(trackBar1.Value), new Percentage(trackBar2.Value), 1, 0);
+                
+                using (var stream = new MemoryStream()) {
+                    // Write the image to the memorystream
+                    img.Write(stream);
+                    pictureBox1.Image = new Bitmap(stream);
+                }
+            }
+
         }
     }
 }

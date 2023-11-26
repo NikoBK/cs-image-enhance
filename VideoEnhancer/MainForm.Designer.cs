@@ -91,6 +91,7 @@
             gaussTabPage = new TabPage();
             medianTabPage = new TabPage();
             label12 = new Label();
+            imageProcessorButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -144,15 +145,16 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(imageProcessorButton);
             groupBox1.Controls.Add(exportButton);
             groupBox1.Controls.Add(screenshotOutputButton);
             groupBox1.Controls.Add(screenshotInputButton);
             groupBox1.Controls.Add(splitButton);
             groupBox1.Controls.Add(startButton);
             groupBox1.ForeColor = SystemColors.ControlText;
-            groupBox1.Location = new Point(770, 478);
+            groupBox1.Location = new Point(399, 444);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(268, 166);
+            groupBox1.Size = new Size(252, 200);
             groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Operations";
@@ -171,7 +173,7 @@
             // screenshotOutputButton
             // 
             screenshotOutputButton.ForeColor = SystemColors.ControlText;
-            screenshotOutputButton.Location = new Point(87, 79);
+            screenshotOutputButton.Location = new Point(168, 79);
             screenshotOutputButton.Name = "screenshotOutputButton";
             screenshotOutputButton.Size = new Size(75, 51);
             screenshotOutputButton.TabIndex = 7;
@@ -182,7 +184,7 @@
             // screenshotInputButton
             // 
             screenshotInputButton.ForeColor = SystemColors.ControlText;
-            screenshotInputButton.Location = new Point(6, 79);
+            screenshotInputButton.Location = new Point(87, 79);
             screenshotInputButton.Name = "screenshotInputButton";
             screenshotInputButton.Size = new Size(75, 51);
             screenshotInputButton.TabIndex = 6;
@@ -707,9 +709,9 @@
             // groupBox3
             // 
             groupBox3.Controls.Add(tabControl2);
-            groupBox3.Location = new Point(401, 444);
+            groupBox3.Location = new Point(657, 478);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(356, 200);
+            groupBox3.Size = new Size(356, 166);
             groupBox3.TabIndex = 14;
             groupBox3.TabStop = false;
             groupBox3.Text = "Filters";
@@ -721,7 +723,7 @@
             tabControl2.Location = new Point(6, 15);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
-            tabControl2.Size = new Size(343, 179);
+            tabControl2.Size = new Size(343, 143);
             tabControl2.TabIndex = 0;
             // 
             // gaussTabPage
@@ -736,7 +738,7 @@
             gaussTabPage.Location = new Point(4, 24);
             gaussTabPage.Name = "gaussTabPage";
             gaussTabPage.Padding = new Padding(3);
-            gaussTabPage.Size = new Size(335, 151);
+            gaussTabPage.Size = new Size(335, 115);
             gaussTabPage.TabIndex = 0;
             gaussTabPage.Text = "Gaussian Blur";
             // 
@@ -747,7 +749,7 @@
             medianTabPage.Location = new Point(4, 24);
             medianTabPage.Name = "medianTabPage";
             medianTabPage.Padding = new Padding(3);
-            medianTabPage.Size = new Size(335, 151);
+            medianTabPage.Size = new Size(335, 115);
             medianTabPage.TabIndex = 1;
             medianTabPage.Text = "Median Filter";
             // 
@@ -761,6 +763,17 @@
             label12.Size = new Size(103, 15);
             label12.TabIndex = 6;
             label12.Text = "Work in progress...";
+            // 
+            // imageProcessorButton
+            // 
+            imageProcessorButton.ForeColor = SystemColors.ControlText;
+            imageProcessorButton.Location = new Point(6, 79);
+            imageProcessorButton.Name = "imageProcessorButton";
+            imageProcessorButton.Size = new Size(75, 51);
+            imageProcessorButton.TabIndex = 9;
+            imageProcessorButton.Text = "Image Processor";
+            imageProcessorButton.UseVisualStyleBackColor = true;
+            imageProcessorButton.Click += imageProcessorButton_Click;
             // 
             // MainForm
             // 
@@ -869,5 +882,6 @@
         private Label label15;
         private TextBox ccBlueWeightTextBox;
         private Label label16;
+        private Button imageProcessorButton;
     }
 }
