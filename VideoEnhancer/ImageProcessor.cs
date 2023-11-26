@@ -55,12 +55,21 @@ namespace VideoEnhancer
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 using var img = new MagickImage(ofd.FileName);
-                img.LiquidRescale(new Percentage(trackBar1.Value), new Percentage(trackBar2.Value), 1, 0);
-                
-                using (var stream = new MemoryStream()) {
+                img.LiquidRescale(new Percentage(30), new Percentage(30), 1, 0);
+                img.Scale(img.BaseWidth, img.BaseHeight);
+
+                using (var stream = new MemoryStream())
+                {
                     // Write the image to the memorystream
                     img.Write(stream);
-                    pictureBox1.Image = new Bitmap(stream);
+                    try
+                    {
+                        pictureBox1.Image = new Bitmap(stream);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Could not process image", "Invalid Parameter Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
 
