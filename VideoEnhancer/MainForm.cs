@@ -610,8 +610,14 @@ namespace VideoEnhancer
         {
             _colorCorrection = ColorCorrectionType.None;
             _brightnessMultiplier = 25;
+            _redAlpha = 1.5f;
+            _greenAlpha = 1.2f;
+            _blueAlpha = 1.0f;
             brightnessMultTextBox.Text = _brightnessMultiplier.ToString();
             colorCorrectionComboBox.Text = _colorCorrection.ToString();
+            ccRedWightTextBox.Text = _redAlpha.ToString();
+            ccGreenWightTextBox.Text = _greenAlpha.ToString();
+            ccBlueWeightTextBox.Text = _blueAlpha.ToString();
         }
 
         private void colorsUpdateButton_Click(object sender, EventArgs e)
