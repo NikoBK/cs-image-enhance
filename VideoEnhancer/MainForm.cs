@@ -46,7 +46,7 @@ namespace VideoEnhancer
         // White Balancing & Color Correction
         private bool _useWhiteBalance = false;
         private bool _useColorCorrection = false;
-        private float _brightnessMultiplier = 1.2f;
+        private int _brightnessMultiplier = 25;
         private ColorCorrectionType _colorCorrection = ColorCorrectionType.None;
 
         public MainForm()
@@ -87,6 +87,8 @@ namespace VideoEnhancer
             tileGridSizeTextBox.Enabled = active;
             claheResetButton.Enabled = active;
             clipLimitUpdateButton.Enabled = active;
+            colorsResetButton.Enabled = active;
+            colorsUpdateButton.Enabled = active;
             ToggleGaussBlurContent(active);
             ToggleSignalLabels(!active);
         }
@@ -196,13 +198,13 @@ namespace VideoEnhancer
                         // Convert BGR image to LAB color space
                         CvInvoke.CvtColor(processedFrame, processedFrame, ColorConversion.Bgr2Lab);
 
-                        // Splot LAB image into channels
+                        // Split LAB image into channels
                         VectorOfMat labChannels = new VectorOfMat();
                         CvInvoke.Split(processedFrame, labChannels);
 
                         // Perform white balancing on the L channel
                         // For simplicity, you can adjust the intensity of the L channel as needed
-                        CvInvoke.AddWeighted(labChannels[0], 1.0, new Mat(labChannels[0].Size, labChannels[0].Depth, labChannels[0].NumberOfChannels), 0.0, 50, labChannels[0]);
+                        CvInvoke.AddWeighted(labChannels[0], 1.0, new Mat(labChannels[0].Size, labChannels[0].Depth, labChannels[0].NumberOfChannels), 0.0, _brightnessMultiplier, labChannels[0]);
 
                         // Merge LAB channels back into an image
                         CvInvoke.Merge(labChannels, processedFrame);
@@ -521,11 +523,6 @@ namespace VideoEnhancer
             _useCLAHE = claheCheckBox.Checked;
         }
 
-        private void ToggleBrightnessMultiplier(bool active)
-        {
-            // TODO: Implement something here.
-        }
-
         private void whiteBalanceCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             _useWhiteBalance = whiteBalanceCheckBox.Checked;
@@ -562,6 +559,23 @@ namespace VideoEnhancer
             _tileGridSize = new Size(8, 8);
             claheClipLimitTextBox.Text = _clipLimit.ToString();
             tileGridSizeTextBox.Text = _tileGridSize.Width.ToString();
+        }
+
+        private void colorsResetButton_Click(object sender, EventArgs e)
+        {
+            _colorCorrection = ColorCorrectionType.None;
+            _brightnessMultiplier = 25;
+            brightnessMultTextBox.Text = _brightnessMultiplier.ToString();
+            colorCorrectionComboBox.Text = _colorCorrection.ToString();
+        }
+
+        private void colorsUpdateButton_Click(object sender, EventArgs e)
+        {
+            int brightMult;
+            if (int.TryParse(brightnessMultTextBox.Text, out brightMult)) {
+                _brightnessMultiplier = brightMult;
+            }
+            brightnessMultTextBox.Text = _brightnessMultiplier.ToString();
         }
     }
 }

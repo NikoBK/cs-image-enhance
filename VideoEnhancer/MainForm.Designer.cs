@@ -82,6 +82,8 @@
             gaussTabPage = new TabPage();
             medianTabPage = new TabPage();
             label12 = new Label();
+            colorsUpdateButton = new Button();
+            colorsResetButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -363,6 +365,8 @@
             // colorCorrectionTab
             // 
             colorCorrectionTab.BackColor = SystemColors.Control;
+            colorCorrectionTab.Controls.Add(colorsResetButton);
+            colorCorrectionTab.Controls.Add(colorsUpdateButton);
             colorCorrectionTab.Controls.Add(brightnessMultTextBox);
             colorCorrectionTab.Controls.Add(label9);
             colorCorrectionTab.Controls.Add(colorCompCheckBox);
@@ -377,17 +381,17 @@
             // 
             // brightnessMultTextBox
             // 
-            brightnessMultTextBox.Location = new Point(25, 62);
+            brightnessMultTextBox.Location = new Point(6, 47);
             brightnessMultTextBox.Name = "brightnessMultTextBox";
             brightnessMultTextBox.Size = new Size(116, 23);
             brightnessMultTextBox.TabIndex = 6;
-            brightnessMultTextBox.Text = "1.2";
+            brightnessMultTextBox.Text = "25";
             brightnessMultTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(25, 43);
+            label9.Location = new Point(6, 28);
             label9.Name = "label9";
             label9.Size = new Size(116, 15);
             label9.TabIndex = 5;
@@ -396,7 +400,7 @@
             // colorCompCheckBox
             // 
             colorCompCheckBox.AutoSize = true;
-            colorCompCheckBox.Location = new Point(185, 6);
+            colorCompCheckBox.Location = new Point(161, 6);
             colorCompCheckBox.Name = "colorCompCheckBox";
             colorCompCheckBox.Size = new Size(158, 19);
             colorCompCheckBox.TabIndex = 3;
@@ -408,16 +412,16 @@
             // 
             colorCorrectionComboBox.FormattingEnabled = true;
             colorCorrectionComboBox.Items.AddRange(new object[] { "None", "ColorCompensation" });
-            colorCorrectionComboBox.Location = new Point(185, 62);
+            colorCorrectionComboBox.Location = new Point(161, 46);
             colorCorrectionComboBox.Name = "colorCorrectionComboBox";
-            colorCorrectionComboBox.Size = new Size(135, 23);
+            colorCorrectionComboBox.Size = new Size(91, 23);
             colorCorrectionComboBox.TabIndex = 2;
             colorCorrectionComboBox.Text = "None";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(185, 44);
+            label7.Location = new Point(161, 28);
             label7.Name = "label7";
             label7.Size = new Size(145, 15);
             label7.TabIndex = 1;
@@ -661,6 +665,26 @@
             label12.TabIndex = 6;
             label12.Text = "Work in progress...";
             // 
+            // colorsUpdateButton
+            // 
+            colorsUpdateButton.Location = new Point(283, 91);
+            colorsUpdateButton.Name = "colorsUpdateButton";
+            colorsUpdateButton.Size = new Size(75, 23);
+            colorsUpdateButton.TabIndex = 7;
+            colorsUpdateButton.Text = "Update";
+            colorsUpdateButton.UseVisualStyleBackColor = true;
+            colorsUpdateButton.Click += colorsUpdateButton_Click;
+            // 
+            // colorsResetButton
+            // 
+            colorsResetButton.Location = new Point(283, 62);
+            colorsResetButton.Name = "colorsResetButton";
+            colorsResetButton.Size = new Size(75, 23);
+            colorsResetButton.TabIndex = 8;
+            colorsResetButton.Text = "Reset";
+            colorsResetButton.UseVisualStyleBackColor = true;
+            colorsResetButton.Click += colorsResetButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -759,5 +783,7 @@
         private Label label11;
         private Button claheResetButton;
         private Label label12;
+        private Button colorsResetButton;
+        private Button colorsUpdateButton;
     }
 }
