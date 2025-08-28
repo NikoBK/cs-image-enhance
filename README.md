@@ -19,6 +19,6 @@ NuGet packages:
 - Emgu.CV (4.8.1.5350), Emgu Corporation
 - Emgu.CV.Bitmap (4.8.1.5350), Emgu Corporation
 - Emgu.CV.runtime.windows (4.8.1.5350), Emgu Corporation
-- Magick.NET-Q8-AnyCPU (13.4.0 WARNING), Dirk Lemstra
+- Magick.NET-Q8-AnyCPU (13.4.0 ⚠️), Dirk Lemstra
 
 The project is written in plain .NET Core 6.0 for Windows.
